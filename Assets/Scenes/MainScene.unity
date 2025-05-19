@@ -1007,7 +1007,7 @@ GameObject:
   - component: {fileID: 1352182172}
   - component: {fileID: 1352182174}
   m_Layer: 0
-  m_Name: PF_Controller
+  m_Name: PF_ControllerManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1025,6 +1025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bd8c83b477fb2a46ab74169648cc84c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _holdTouch: {fileID: -7539557298233032556, guid: 212eb212db829fa42bc93c58f7b296bf, type: 3}
 --- !u!4 &1352182173
 Transform:
   m_ObjectHideFlags: 0
@@ -1067,7 +1068,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!850595691 &1449841274
