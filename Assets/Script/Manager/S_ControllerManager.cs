@@ -33,6 +33,9 @@ public class S_ControllerManager : MonoBehaviour
     private void OnPoint(InputValue input)
     {
         touchPos = input.Get<Vector2>();
+
+        if(useJoystick)
+            _moveableJoystick.UpdateKnobPosLocally(touchPos);
     }
 
     private void ControllerManager_OnHoldTouch_started(InputAction.CallbackContext obj)
