@@ -42,15 +42,21 @@ public class S_ControllerManager : MonoBehaviour
     {
         useJoystick = true;
 
-        _staticJoystick.SetActive(!useJoystick);
-        _moveableJoystick.gameObject.SetActive(useJoystick);
-        _moveableJoystick?.UpdatePosLocally(touchPos);
+        UpdateJoytickState();
+
+        _moveableJoystick.UpdatePosLocally(touchPos);
+        _moveableJoystick.UpdateKnobPosLocally(touchPos);
     }
 
     private void ControllerManager_OnHoldTouch_canceled(InputAction.CallbackContext obj)
     {
         useJoystick = false;
 
+        UpdateJoytickState();
+    }
+
+    private void UpdateJoytickState()
+    {
         _staticJoystick.SetActive(!useJoystick);
         _moveableJoystick.gameObject.SetActive(useJoystick);
     }

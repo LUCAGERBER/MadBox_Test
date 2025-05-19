@@ -10,7 +10,8 @@ public class S_Joystick : MonoBehaviour
     private RectTransform rectT = null;
 
     private Vector2 knobLocalPoint = Vector2.zero;
-    private Vector2 knobLocalClampedPoint = Vector2.zero;
+
+    float maxRadius = 0;
 
     private void Awake()
     {
@@ -35,10 +36,11 @@ public class S_Joystick : MonoBehaviour
     {
         RectTransformUtility.ScreenPointToLocalPointInRectangle(rectT, pos, null, out knobLocalPoint);
 
-        Debug.Log(rectT.sizeDelta);
+        maxRadius = rectT.sizeDelta.x * 0.5f;
 
-        knobLocalClampedPoint = new Vector2(Mathf.Clamp(knobLocalPoint.x, -rectT.sizeDelta.x/2, rectT.sizeDelta.x/2), Mathf.Clamp(knobLocalPoint.y, -rectT.sizeDelta.y / 2, rectT.sizeDelta.y / 2));
+        if (knobLocalPoint.magnitude > maxRadius)
+            knobLocalPoint = knobLocalPoint.normalized * maxRadius;
 
-        _knob.anchoredPosition = knobLocalClampedPoint;
+        _knob.anchoredPosition = knobLocalPoint;
     }
 }
