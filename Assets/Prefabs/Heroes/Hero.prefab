@@ -528,6 +528,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 10
+  _animator: {fileID: 4278100186079492270}
+  _character: {fileID: 2148928661061455951}
 --- !u!136 &6262649835704055941
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class S_Player : MonoBehaviour
 {
+    private const string SPEED_KEY = "speed";
+
+    [Header("Settings")]
     [SerializeField] private float _speed = 10f;
+    [SerializeField] private float _rotSpeed = 10f;
+
+    [Header("Refs")]
+    [SerializeField] private Animator _animator = null;
+    [SerializeField] private Transform _character = null;
 
     private Rigidbody rb = null;
 
@@ -31,5 +39,13 @@ public class S_Player : MonoBehaviour
         velocity = direction * _speed * Time.fixedDeltaTime;
 
         rb.MovePosition(rb.position + velocity);
+
+        if (direction.magnitude != 0)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+            _character.rotation = Quaternion.Slerp(_character.rotation, targetRotation, _rotSpeed * Time.fixedDeltaTime);
+        }
+
+        _animator.SetFloat(SPEED_KEY, velocity.magnitude);
     }
 }
