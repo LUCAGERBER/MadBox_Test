@@ -7,14 +7,20 @@ using UnityEngine.TextCore.Text;
 
 public class S_Enemy : MonoBehaviour
 {
+    [Header("Settings")]
     [SerializeField] protected float _speed = 5f;
     [SerializeField] protected float _rotSpeed = 8f;
-                                     
+    [SerializeField] protected float _detectionRadius = 5f;
+    [SerializeField] protected float _detectEvery = .1f;
+    [SerializeField] protected LayerMask playerLayer = default;
+
+    [Header("Refs")]
     [SerializeField] protected Animator _animator = null;
     [SerializeField] protected Transform _character = null;
 
     [Header("Debug")]
-    [SerializeField] protected Transform _debugTarget;
+    [SerializeField] protected Transform _debugTarget = null;
+    [SerializeField] protected bool _drawGizmo = false;
 
     protected Rigidbody rb;
 
@@ -22,6 +28,8 @@ public class S_Enemy : MonoBehaviour
     protected Vector3 flattenDirection = Vector3.zero;
 
     protected Transform target = null;
+
+    private Coroutine detectionCoroutine = null;
 
     private Action DoAction;
 
@@ -52,6 +60,9 @@ public class S_Enemy : MonoBehaviour
 
     virtual protected void SetModeMove()
     {
+        if (detectionCoroutine != null) StopCoroutine(detectionCoroutine);
+        detectionCoroutine = StartCoroutine(DetectionLoop(SetModeAttack));
+
         DoAction = DoActionMove;
     }
 
@@ -62,19 +73,22 @@ public class S_Enemy : MonoBehaviour
 
     virtual protected void SetModeAttack()
     {
+        if (detectionCoroutine != null) StopCoroutine(detectionCoroutine);
+
         DoAction = DoActionAttack;
     }
 
     virtual protected void DoActionAttack()
     {
-
+        Debug.Log("ATRTACK");
     }
 
     #endregion
 
     virtual protected void FixedUpdate()
     {
-        DoAction();    }
+        DoAction();    
+    }
 
     virtual protected void Move()
     {
@@ -90,4 +104,34 @@ public class S_Enemy : MonoBehaviour
             _character.rotation = Quaternion.Slerp(_character.rotation, targetRotation, _rotSpeed * Time.fixedDeltaTime);
         }
     }
+
+    protected IEnumerator DetectionLoop(Action method, bool executeIfFound = true)
+    {
+        while (true)
+        {
+            Collider[] hits = Physics.OverlapSphere(transform.position, _detectionRadius, playerLayer);
+
+            foreach (var hit in hits)
+            {
+                if (hit.CompareTag("Player"))
+                {
+                    Debug.Log("Player detected!");
+                    if(executeIfFound) method();
+                }
+            }
+
+            yield return new WaitForSeconds(_detectEvery);
+        }
+    }
+
+    #region DEBUG
+
+    private void OnDrawGizmosSelected()
+    {
+        if (!_drawGizmo) return;
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, _detectionRadius);
+    }
+
+    #endregion
 }

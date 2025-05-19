@@ -49,9 +49,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 5
   _rotSpeed: 8
+  _detectionRadius: 3
+  _detectEvery: 0.5
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
   _animator: {fileID: 6926839794853975167}
   _character: {fileID: 6926839794863012759}
   _debugTarget: {fileID: 0}
+  _drawGizmo: 1
 --- !u!65 &6658828715661567863
 BoxCollider:
   m_ObjectHideFlags: 0
