@@ -7,13 +7,17 @@ public class S_ControllerManager : MonoBehaviour
 {
     [SerializeField] private InputActionReference _holdTouch = null;
 
+    [SerializeField] private S_Joystick _moveableJoystick = null;
+    [SerializeField] private GameObject _staticJoystick = null;
+
     private PlayerInput playerInput = null;
 
     private int width = 0;
     private int height = 0;
 
     private Vector2 touchPos = Vector2.zero;
-    private Vector2 clampedTouchPos = Vector2.zero;
+
+    private bool useJoystick = false;
 
     private void Awake()
     {
@@ -29,16 +33,22 @@ public class S_ControllerManager : MonoBehaviour
     private void OnPoint(InputValue input)
     {
         touchPos = input.Get<Vector2>();
-        clampedTouchPos = new Vector2(Mathf.Clamp(touchPos.x,0,width),Mathf.Clamp(touchPos.y,0,height));
     }
 
     private void ControllerManager_OnHoldTouch_started(InputAction.CallbackContext obj)
     {
-        Debug.Log("Start hold");
+        useJoystick = true;
+
+        _staticJoystick.SetActive(!useJoystick);
+        _moveableJoystick.gameObject.SetActive(useJoystick);
+        _moveableJoystick?.UpdatePosLocally(touchPos);
     }
 
     private void ControllerManager_OnHoldTouch_canceled(InputAction.CallbackContext obj)
     {
-        Debug.Log("End Hold");
+        useJoystick = false;
+
+        _staticJoystick.SetActive(!useJoystick);
+        _moveableJoystick.gameObject.SetActive(useJoystick);
     }
 }
