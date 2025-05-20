@@ -5,7 +5,8 @@ using UnityEngine.Events;
 
 public class S_GameManager : MonoBehaviour
 {
-    public event UnityAction onWaveStarted;
+    public event UnityAction onGameStarted;
+    public event UnityAction onNewWaveStarting;
 
     private static S_GameManager instance;
     public static S_GameManager Instance => instance;
@@ -20,11 +21,16 @@ public class S_GameManager : MonoBehaviour
 
     private void Start()
     {
-        Invoke("Wave", 5f);
+        S_UIGameManager.Instance.onUIGameStarted += UIGameManager_onUIGameStarted;
     }
 
-    private void Wave()
+    private void UIGameManager_onUIGameStarted()
     {
-        onWaveStarted?.Invoke();
+        StartGame();
+    }
+
+    private void StartGame()
+    {
+        onGameStarted?.Invoke();
     }
 }

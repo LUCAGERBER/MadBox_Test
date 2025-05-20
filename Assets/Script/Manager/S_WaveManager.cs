@@ -32,10 +32,10 @@ public class S_WaveManager : MonoBehaviour
 
     private void Start()
     {
-        S_GameManager.Instance.onWaveStarted += GameManager_onWaveStarted;
+        S_GameManager.Instance.onGameStarted += GameManager_onGameStarted;
     }
 
-    private void GameManager_onWaveStarted()
+    private void GameManager_onGameStarted()
     {
         Debug.Log("StartWaving");
     }
