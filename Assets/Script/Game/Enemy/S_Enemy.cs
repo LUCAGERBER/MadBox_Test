@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.TextCore.Text;
 
@@ -27,6 +28,8 @@ public class S_Enemy : S_Entity
 
     protected Transform target = null;
 
+    private NavMeshAgent agent = null;
+
     private Coroutine detectionCoroutine = null;
 
     private Action DoAction;
@@ -40,6 +43,12 @@ public class S_Enemy : S_Entity
     {
         base.Awake();
         SetModeVoid();
+
+        agent = GetComponent<NavMeshAgent>();
+
+        target = _debugTarget;
+
+        SetModeMove();
     }
 
     #region STATE_MACHINE
@@ -70,6 +79,8 @@ public class S_Enemy : S_Entity
 
         _animator.SetFloat(SPEED_KEY, 0);
 
+        agent.SetDestination(transform.position);
+
         elapsedAtack = _attackCooldown;
 
         DoAction = DoActionAttack;
@@ -91,15 +102,15 @@ public class S_Enemy : S_Entity
         SetModeMove();
     }
 
-    override protected void Move()
+    virtual protected void Move()
     {
-        direction = target.position - transform.position;
+        agent.SetDestination(target.position);
+        
+        /*direction = target.position - transform.position;
 
         flattenDirection = new Vector3(direction.x, 0, direction.z);
 
-        velocity = flattenDirection.normalized * _speed * Time.fixedDeltaTime;
-
-        base.Move();
+        velocity = flattenDirection.normalized * _speed * Time.fixedDeltaTime;*/
     }
 
     protected IEnumerator DetectionLoop(Action method, bool executeIfFound = true)

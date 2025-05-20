@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4760284710733275832}
   - component: {fileID: 6658828715661567863}
   - component: {fileID: 551248969373064789}
+  - component: {fileID: 1117533660254967493}
   m_Layer: 0
   m_Name: Bee
   m_TagString: Untagged
@@ -47,8 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f7261e7a606de74bb1334758254a5b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
-  _rotSpeed: 8
   _animator: {fileID: 6926839794853975167}
   _character: {fileID: 6926839794863012759}
   _timeBeforeAttack: 0.1
@@ -137,6 +136,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!195 &1117533660254967493
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358921057130329688}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 2
 --- !u!1 &6926839794863368101
 GameObject:
   m_ObjectHideFlags: 0

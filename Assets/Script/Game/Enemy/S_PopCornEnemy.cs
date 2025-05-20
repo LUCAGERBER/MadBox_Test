@@ -55,6 +55,7 @@ public class S_PopCornEnemy : S_Enemy
 
         Vector3 charaStartPos = _character.transform.localPosition;
         Vector3 targetPos = Vector3.zero;
+        Vector3 dir = Vector3.zero;
 
         while (elapsed < _dashWindUpTime)
         {
@@ -67,9 +68,9 @@ public class S_PopCornEnemy : S_Enemy
 
             _character.transform.localPosition = new Vector3(x,y,z);
 
-            direction = target.position - transform.position;
+            dir = target.position - transform.position;
 
-            if (elapsed / _dashWindUpTime < lockInDirectionPercent) LookRotation();
+            if (elapsed / _dashWindUpTime < lockInDirectionPercent) Debug.Log("aze");//LookRotation();
             else if (targetPos == Vector3.zero) targetPos = target.position;
 
             yield return null;

@@ -42,19 +42,19 @@ public class S_WaveManager : MonoBehaviour
 
         instance = this;
 
-        SearchForHighestEntityNeeded();
-        SpawnNeedEntities();
     }
 
     private void Start()
     {
+        SearchForHighestEntityNeeded();
+        SpawnNeedEntities();
         S_GameManager.Instance.onGameStarted += GameManager_onGameStarted;
     }
 
     private void GameManager_onGameStarted()
     {
         waveIndex = 0;
-        StartWaves();
+        //StartWaves();
     }
 
     private void SearchForHighestEntityNeeded()
