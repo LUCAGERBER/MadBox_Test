@@ -7,8 +7,11 @@ using UnityEngine.TextCore.Text;
 
 public class S_Enemy : S_Entity
 {
+    protected const string ATTACK_ANIM = "Attack";
+
     [Header("Settings")]
-    
+    [SerializeField] protected float _timeBeforeAttack = .5f;
+    [SerializeField] protected float _attackCooldown = 2f;
     [SerializeField] protected float _detectionRadius = 5f;
     [SerializeField] protected float _detectEvery = .1f;
     [SerializeField] protected LayerMask playerLayer = default;
@@ -19,6 +22,8 @@ public class S_Enemy : S_Entity
     [SerializeField] protected bool _drawGizmo = false;
 
     protected Vector3 flattenDirection = Vector3.zero;
+
+    protected float elapsedAtack = 0;
 
     protected Transform target = null;
 
@@ -64,12 +69,13 @@ public class S_Enemy : S_Entity
 
         _animator.SetFloat(SPEED_KEY, 0);
 
+        elapsedAtack = _attackCooldown;
+
         DoAction = DoActionAttack;
     }
 
     virtual protected void DoActionAttack()
     {
-        Debug.Log("ATRTACK");
     }
 
     #endregion
@@ -94,19 +100,26 @@ public class S_Enemy : S_Entity
     {
         while (true)
         {
-            Collider[] hits = Physics.OverlapSphere(transform.position, _detectionRadius, playerLayer);
-
-            foreach (var hit in hits)
-            {
-                if (hit.CompareTag("Player"))
-                {
-                    Debug.Log("Player detected!");
-                    if(executeIfFound) method();
-                }
-            }
+            if (executeIfFound && DetectPlayer())
+                method();
 
             yield return new WaitForSeconds(_detectEvery);
         }
+    }
+
+    protected bool DetectPlayer()
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, _detectionRadius, playerLayer);
+
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Player"))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     #region DEBUG
