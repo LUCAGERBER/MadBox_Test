@@ -7,6 +7,8 @@ public class S_WaveManager : MonoBehaviour
 {
     [SerializeField] private SO_WaveSettings _wavesSettings = null;
 
+    [SerializeField] private Vector2 spawnRadiusRange = Vector2.one;
+
     [SerializeField] private S_Enemy _basicEnemy = null;
     [SerializeField] private S_Enemy _eliteEnemy = null;
     [SerializeField] private S_Enemy _bossEnemy = null;
@@ -118,7 +120,11 @@ public class S_WaveManager : MonoBehaviour
     {
         int nbOfEnemies = currentWave.nbOfEnemiesPerBatch;
         S_Enemy enemy = null;
-        
+
+        float angle;
+        float x;
+        float z;
+
         for (int i = 0; i < nbOfEnemies; i++)
         {
             enemy = _entityStorage.GetBasicEnemy();
@@ -128,8 +134,13 @@ public class S_WaveManager : MonoBehaviour
             currentNbOfBasicLeft--;
             currentNbOfBasicSpawned++;
 
+            angle = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
+            x = Mathf.Cos(angle) * UnityEngine.Random.Range(spawnRadiusRange.x, spawnRadiusRange.y);
+            z = Mathf.Sin(angle) * UnityEngine.Random.Range(spawnRadiusRange.x, spawnRadiusRange.y);
+
             enemy.gameObject.SetActive(true);
-            enemy.transform.position = Vector3.zero + new Vector3(i,0,i);
+            enemy.transform.parent = null;
+            enemy.Agent.Warp(_player.transform.position + new Vector3(x, 0, z));
             enemy.Activate();
         }
     }

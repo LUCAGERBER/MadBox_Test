@@ -35,6 +35,8 @@ public class S_Enemy : S_Entity
 
     private Action DoAction;
 
+    public NavMeshAgent Agent => agent;
+
     public S_Enemy(Transform target) 
     { 
         this.target = target == null ? _debugTarget : target;
