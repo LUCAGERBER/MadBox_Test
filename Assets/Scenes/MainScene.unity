@@ -1776,6 +1776,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7803009798484147292, guid: 2452b02c64b856848a0fd7a51260ed82, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 337934967}
+    - target: {fileID: 7803009798484147292, guid: 2452b02c64b856848a0fd7a51260ed82, type: 3}
       propertyPath: _entityStorage
       value: 
       objectReference: {fileID: 1002961982}
