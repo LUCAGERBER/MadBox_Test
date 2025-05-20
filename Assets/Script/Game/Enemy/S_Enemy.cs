@@ -21,6 +21,7 @@ public class S_Enemy : S_Entity
     [Header("Debug")]
     [SerializeField] protected Transform _debugTarget = null;
     [SerializeField] protected bool _drawGizmo = false;
+    [SerializeField] protected bool _autoActivate = false;
 
     protected Vector3 flattenDirection = Vector3.zero;
 
@@ -46,9 +47,12 @@ public class S_Enemy : S_Entity
 
         agent = GetComponent<NavMeshAgent>();
 
-        target = _debugTarget;
+        if (_autoActivate)
+        {
+            target = _debugTarget;
 
-        SetModeMove();
+            SetModeMove();
+        }
     }
 
     #region STATE_MACHINE

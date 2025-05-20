@@ -54,7 +54,7 @@ public class S_WaveManager : MonoBehaviour
     private void GameManager_onGameStarted()
     {
         waveIndex = 0;
-        //StartWaves();
+        StartWaves();
     }
 
     private void SearchForHighestEntityNeeded()
@@ -129,7 +129,7 @@ public class S_WaveManager : MonoBehaviour
             currentNbOfBasicSpawned++;
 
             enemy.gameObject.SetActive(true);
-            enemy.transform.position = Vector3.zero + new Vector3(i,i,i);
+            enemy.transform.position = Vector3.zero + new Vector3(i,0,i);
             enemy.Activate();
         }
     }

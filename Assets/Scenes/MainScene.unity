@@ -833,18 +833,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1117533660254967493, guid: 41e04faa14fb7a34e8b16750ec910fc3, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1117533660254967493, guid: 41e04faa14fb7a34e8b16750ec910fc3, type: 3}
-      propertyPath: m_AutoRepath
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1117533660254967493, guid: 41e04faa14fb7a34e8b16750ec910fc3, type: 3}
-      propertyPath: m_ObstacleAvoidanceType
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 1358921057130329688, guid: 41e04faa14fb7a34e8b16750ec910fc3, type: 3}
       propertyPath: m_Name
       value: Bee
@@ -853,6 +841,10 @@ PrefabInstance:
       propertyPath: _debugTarget
       value: 
       objectReference: {fileID: 337934965}
+    - target: {fileID: 4760284710733275832, guid: 41e04faa14fb7a34e8b16750ec910fc3, type: 3}
+      propertyPath: _autoActivate
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1678,15 +1670,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5879577784807538187, guid: 8c2c3b7ae9d905d44a061def643a7dd1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 213.5
       objectReference: {fileID: 0}
     - target: {fileID: 5879577784807538187, guid: 8c2c3b7ae9d905d44a061def643a7dd1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5879577784807538187, guid: 8c2c3b7ae9d905d44a061def643a7dd1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -213.3
       objectReference: {fileID: 0}
     - target: {fileID: 5879577784807538187, guid: 8c2c3b7ae9d905d44a061def643a7dd1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1717,7 +1709,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1624756225021673115, guid: 8c2c3b7ae9d905d44a061def643a7dd1, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c2c3b7ae9d905d44a061def643a7dd1, type: 3}
