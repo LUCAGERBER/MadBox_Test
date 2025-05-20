@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3821927755170200519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5951802899672531062}
+  - component: {fileID: 7803009798484147292}
+  m_Layer: 0
+  m_Name: PF_WaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5951802899672531062
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3821927755170200519}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.298279, y: 15.978005, z: 19.386478}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7803009798484147292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3821927755170200519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d470c929636c2c4b8bcd61f872bdf80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _waves:
+  - waveName: 10 base
+    isBossLevel: 0
+    nbOfBasicEnemy: 10
+    nbOfEliteEnemy: 0
+  - waveName: 20 base
+    isBossLevel: 0
+    nbOfBasicEnemy: 20
+    nbOfEliteEnemy: 0
+  - waveName: 10 base 2 elite
+    isBossLevel: 0
+    nbOfBasicEnemy: 10
+    nbOfEliteEnemy: 2
+  - waveName: 40 base 10 elite
+    isBossLevel: 0
+    nbOfBasicEnemy: 40
+    nbOfEliteEnemy: 10
+  - waveName: boss
+    isBossLevel: 1
+    nbOfBasicEnemy: 0
+    nbOfEliteEnemy: 0
+  _basicEnemy: {fileID: 4760284710733275832, guid: 41e04faa14fb7a34e8b16750ec910fc3, type: 3}
+  _eliteEnemy: {fileID: 0}
+  _bossEnemy: {fileID: 0}

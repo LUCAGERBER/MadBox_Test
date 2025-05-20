@@ -36,9 +36,10 @@ public class S_Enemy : S_Entity
         this.target = target == null ? _debugTarget : target;
     }
 
-    private void Start()
+    protected override void Awake()
     {
-        SetModeMove();
+        base.Awake();
+        SetModeVoid();
     }
 
     #region STATE_MACHINE
