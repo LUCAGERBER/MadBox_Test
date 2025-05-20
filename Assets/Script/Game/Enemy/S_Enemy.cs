@@ -5,26 +5,19 @@ using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.TextCore.Text;
 
-public class S_Enemy : MonoBehaviour
+public class S_Enemy : S_Entity
 {
     [Header("Settings")]
-    [SerializeField] protected float _speed = 5f;
-    [SerializeField] protected float _rotSpeed = 8f;
+    
     [SerializeField] protected float _detectionRadius = 5f;
     [SerializeField] protected float _detectEvery = .1f;
     [SerializeField] protected LayerMask playerLayer = default;
 
-    [Header("Refs")]
-    [SerializeField] protected Animator _animator = null;
-    [SerializeField] protected Transform _character = null;
 
     [Header("Debug")]
     [SerializeField] protected Transform _debugTarget = null;
     [SerializeField] protected bool _drawGizmo = false;
 
-    protected Rigidbody rb;
-
-    protected Vector3 direction = Vector3.zero;
     protected Vector3 flattenDirection = Vector3.zero;
 
     protected Transform target = null;
@@ -36,12 +29,6 @@ public class S_Enemy : MonoBehaviour
     public S_Enemy(Transform target) 
     { 
         this.target = target == null ? _debugTarget : target;
-    }
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-        SetModeVoid();
     }
 
     private void Start()
@@ -75,6 +62,8 @@ public class S_Enemy : MonoBehaviour
     {
         if (detectionCoroutine != null) StopCoroutine(detectionCoroutine);
 
+        _animator.SetFloat(SPEED_KEY, 0);
+
         DoAction = DoActionAttack;
     }
 
@@ -90,19 +79,15 @@ public class S_Enemy : MonoBehaviour
         DoAction();    
     }
 
-    virtual protected void Move()
+    override protected void Move()
     {
         direction = _debugTarget.position - transform.position;
 
         flattenDirection = new Vector3(direction.x, 0, direction.z);
 
-        rb.MovePosition(rb.position + (flattenDirection.normalized * _speed * Time.fixedDeltaTime));
+        velocity = flattenDirection.normalized * _speed * Time.fixedDeltaTime;
 
-        if (direction.magnitude != 0)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-            _character.rotation = Quaternion.Slerp(_character.rotation, targetRotation, _rotSpeed * Time.fixedDeltaTime);
-        }
+        base.Move();
     }
 
     protected IEnumerator DetectionLoop(Action method, bool executeIfFound = true)
