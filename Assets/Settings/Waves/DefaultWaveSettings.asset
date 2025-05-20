@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c37467fcd94025047a12bcdcb1a075e6, type: 3}
+  m_Name: DefaultWaveSettings
+  m_EditorClassIdentifier: 
+  _waves:
+  - waveName: 10 base
+    isBossLevel: 0
+    nbOfBasicEnemy: 10
+    nbOfEliteEnemy: 0
+    nbOfEnemiesPerBatch: 5
+    timeBetweenBatch: 5
+  - waveName: 20 base
+    isBossLevel: 0
+    nbOfBasicEnemy: 20
+    nbOfEliteEnemy: 0
+    nbOfEnemiesPerBatch: 5
+    timeBetweenBatch: 3
+  - waveName: 10 base 2 elite
+    isBossLevel: 0
+    nbOfBasicEnemy: 10
+    nbOfEliteEnemy: 2
+    nbOfEnemiesPerBatch: 6
+    timeBetweenBatch: 10
+  - waveName: 40 base 10 elite
+    isBossLevel: 0
+    nbOfBasicEnemy: 40
+    nbOfEliteEnemy: 10
+    nbOfEnemiesPerBatch: 10
+    timeBetweenBatch: 6
+  - waveName: boss
+    isBossLevel: 1
+    nbOfBasicEnemy: 0
+    nbOfEliteEnemy: 0
+    nbOfEnemiesPerBatch: 1
+    timeBetweenBatch: 0

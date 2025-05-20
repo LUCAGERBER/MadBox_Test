@@ -86,9 +86,14 @@ public class S_Enemy : S_Entity
         DoAction();    
     }
 
+    virtual public void Activate()
+    {
+        SetModeMove();
+    }
+
     override protected void Move()
     {
-        direction = _debugTarget.position - transform.position;
+        direction = target.position - transform.position;
 
         flattenDirection = new Vector3(direction.x, 0, direction.z);
 
@@ -121,6 +126,11 @@ public class S_Enemy : S_Entity
         }
 
         return false;
+    }
+
+    public void SetTarget(Transform target)
+    {
+        this.target = target;
     }
 
     #region DEBUG

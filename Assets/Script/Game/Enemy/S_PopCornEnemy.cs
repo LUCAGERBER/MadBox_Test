@@ -67,10 +67,10 @@ public class S_PopCornEnemy : S_Enemy
 
             _character.transform.localPosition = new Vector3(x,y,z);
 
-            direction = _debugTarget.position - transform.position;
+            direction = target.position - transform.position;
 
             if (elapsed / _dashWindUpTime < lockInDirectionPercent) LookRotation();
-            else if (targetPos == Vector3.zero) targetPos = _debugTarget.position;
+            else if (targetPos == Vector3.zero) targetPos = target.position;
 
             yield return null;
         }

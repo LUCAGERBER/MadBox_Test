@@ -44,27 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d470c929636c2c4b8bcd61f872bdf80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _waves:
-  - waveName: 10 base
-    isBossLevel: 0
-    nbOfBasicEnemy: 10
-    nbOfEliteEnemy: 0
-  - waveName: 20 base
-    isBossLevel: 0
-    nbOfBasicEnemy: 20
-    nbOfEliteEnemy: 0
-  - waveName: 10 base 2 elite
-    isBossLevel: 0
-    nbOfBasicEnemy: 10
-    nbOfEliteEnemy: 2
-  - waveName: 40 base 10 elite
-    isBossLevel: 0
-    nbOfBasicEnemy: 40
-    nbOfEliteEnemy: 10
-  - waveName: boss
-    isBossLevel: 1
-    nbOfBasicEnemy: 0
-    nbOfEliteEnemy: 0
+  _wavesSettings: {fileID: 11400000, guid: 40f196657aa0f03468362822317f79db, type: 2}
   _basicEnemy: {fileID: 4760284710733275832, guid: 41e04faa14fb7a34e8b16750ec910fc3, type: 3}
   _eliteEnemy: {fileID: 0}
   _bossEnemy: {fileID: 0}
+  _entityStorage: {fileID: 0}
