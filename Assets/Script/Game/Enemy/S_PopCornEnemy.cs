@@ -12,6 +12,7 @@ public class S_PopCornEnemy : S_Enemy
     [SerializeField, Range(0, 1)] private float lockInDirectionPercent = 1f;
     [SerializeField] private float _dashDistance = 5f;
     [SerializeField] private float _dashDuration = .5f;
+    [SerializeField] private float _endDashCooldown = .2f;
     [SerializeField] private AnimationCurve _dashAnimationCurve = null;
 
     [Space()]
@@ -57,6 +58,8 @@ public class S_PopCornEnemy : S_Enemy
         Vector3 targetPos = Vector3.zero;
         Vector3 dir = Vector3.zero;
 
+        Agent.updateRotation = false;
+
         while (elapsed < _dashWindUpTime)
         {
             elapsed += Time.deltaTime;
@@ -70,7 +73,7 @@ public class S_PopCornEnemy : S_Enemy
 
             dir = target.position - transform.position;
 
-            if (elapsed / _dashWindUpTime < lockInDirectionPercent) Debug.Log("aze");//LookRotation();
+            if (elapsed / _dashWindUpTime < lockInDirectionPercent) RotateTowards(transform, dir, 8f);
             else if (targetPos == Vector3.zero) targetPos = target.position;
 
             yield return null;
@@ -96,6 +99,16 @@ public class S_PopCornEnemy : S_Enemy
         }
 
         _animator.SetTrigger(DASH_ATTACK_END_KEY);
+
+        elapsed = 0f;
+
+        while(elapsed < _endDashCooldown)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        Agent.updateRotation = true;
 
         isDashing = false;
     }
