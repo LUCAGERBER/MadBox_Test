@@ -58,14 +58,16 @@ public class S_Enemy : S_Entity
         FetchSettings();
     }
 
-    private void FetchSettings()
+    virtual protected void FetchSettings()
     {
         agent.speed = stats.Speed;
         agent.angularSpeed = stats.RotSpeed;
+
         timeBeforeAttack = stats.TimeBeforeAttack;
         attackCooldown = stats.AttackCooldown;
         detectionRadius = stats.DetectionRadius;
         detectEvery = stats.DetectEvery;
+
         playerLayer = stats.AttackLayer;
     }
 

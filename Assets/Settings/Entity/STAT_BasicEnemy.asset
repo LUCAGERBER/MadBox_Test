@@ -22,3 +22,15 @@ MonoBehaviour:
   _attackLayer:
     serializedVersion: 2
     m_Bits: 64
+  _entityType: 0
+  _dashWindUpTime: 0.3
+  _lockInDirectionPercent: 1
+  _dashDistance: 5
+  _dashDuration: 0.5
+  _endDashCooldown: 0.2
+  _dashAnimationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

@@ -15,3 +15,22 @@ MonoBehaviour:
   _health: 10
   _speed: 10
   _rotSpeed: 8
+  _timeBeforeAttack: 0.5
+  _attackCooldown: 2
+  _detectionRadius: 5
+  _detectEvery: 0.1
+  _attackLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _entityType: 3
+  _dashWindUpTime: 0.3
+  _lockInDirectionPercent: 1
+  _dashDistance: 5
+  _dashDuration: 0.5
+  _endDashCooldown: 0.2
+  _dashAnimationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
