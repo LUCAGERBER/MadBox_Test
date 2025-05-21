@@ -10,12 +10,11 @@ public class S_Enemy : S_Entity
 {
     protected const string ATTACK_ANIM = "Attack";
 
-    [Header("Settings")]
-    [SerializeField] protected float _timeBeforeAttack = .5f;
-    [SerializeField] protected float _attackCooldown = 2f;
-    [SerializeField] protected float _detectionRadius = 5f;
-    [SerializeField] protected float _detectEvery = .1f;
-    [SerializeField] protected LayerMask playerLayer = default;
+    protected float timeBeforeAttack = .5f;
+    protected float attackCooldown = 2f;
+    protected float detectionRadius = 5f;
+    protected float detectEvery = .1f;
+    protected LayerMask playerLayer = default;
 
 
     [Header("Debug")]
@@ -56,8 +55,18 @@ public class S_Enemy : S_Entity
             SetModeMove();
         }
 
-        agent.speed = stats.speed;
-        agent.angularSpeed = stats.rotSpeed;
+        FetchSettings();
+    }
+
+    private void FetchSettings()
+    {
+        agent.speed = stats.Speed;
+        agent.angularSpeed = stats.RotSpeed;
+        timeBeforeAttack = stats.TimeBeforeAttack;
+        attackCooldown = stats.AttackCooldown;
+        detectionRadius = stats.DetectionRadius;
+        detectEvery = stats.DetectEvery;
+        playerLayer = stats.AttackLayer;
     }
 
     #region STATE_MACHINE
@@ -90,7 +99,7 @@ public class S_Enemy : S_Entity
 
         agent.SetDestination(transform.position);
 
-        elapsedAtack = _attackCooldown;
+        elapsedAtack = attackCooldown;
 
         DoAction = DoActionAttack;
     }
@@ -129,13 +138,13 @@ public class S_Enemy : S_Entity
             if (executeIfFound && DetectPlayer())
                 method();
 
-            yield return new WaitForSeconds(_detectEvery);
+            yield return new WaitForSeconds(detectEvery);
         }
     }
 
     protected bool DetectPlayer()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, _detectionRadius, playerLayer);
+        Collider[] hits = Physics.OverlapSphere(transform.position, detectionRadius, playerLayer);
 
         foreach (var hit in hits)
         {
@@ -159,7 +168,7 @@ public class S_Enemy : S_Entity
     {
         if (!_drawGizmo) return;
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, _detectionRadius);
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 
     #endregion

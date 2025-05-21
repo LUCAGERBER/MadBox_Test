@@ -28,7 +28,7 @@ public class S_PopCornEnemy : S_Enemy
 
         elapsedAtack += Time.fixedDeltaTime;
 
-        if (elapsedAtack < _attackCooldown)
+        if (elapsedAtack < attackCooldown)
         {
             if (!DetectPlayer())
                 SetModeMove();
@@ -36,7 +36,7 @@ public class S_PopCornEnemy : S_Enemy
             return;
         }
 
-        if(elapsedAtack > _timeBeforeAttack + _attackCooldown)
+        if(elapsedAtack > timeBeforeAttack + attackCooldown)
         {
             elapsedAtack = 0;
 

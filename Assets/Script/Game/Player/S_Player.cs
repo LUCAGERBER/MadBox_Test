@@ -15,8 +15,8 @@ public class S_Player : S_Entity
     {
         base.Awake();
 
-        speed = stats.speed;
-        rotSpeed = stats.rotSpeed;
+        speed = stats.Speed;
+        rotSpeed = stats.RotSpeed;
     }
 
     public void SetDirection(Vector3 dir)

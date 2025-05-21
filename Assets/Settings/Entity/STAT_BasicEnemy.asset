@@ -15,3 +15,10 @@ MonoBehaviour:
   _health: 10
   _speed: 8
   _rotSpeed: 160
+  _timeBeforeAttack: 0.1
+  _attackCooldown: 5
+  _detectionRadius: 3
+  _detectEvery: 0.2
+  _attackLayer:
+    serializedVersion: 2
+    m_Bits: 64
