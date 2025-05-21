@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f7261e7a606de74bb1334758254a5b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: 41d08a9df2efd334eaaf77020b7d4884, type: 2}
   _animator: {fileID: 6926839794853975167}
   _character: {fileID: 6926839794863012759}
   _timeBeforeAttack: 0.1
@@ -148,7 +149,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 8
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 160

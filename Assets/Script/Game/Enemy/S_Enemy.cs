@@ -55,6 +55,9 @@ public class S_Enemy : S_Entity
 
             SetModeMove();
         }
+
+        agent.speed = stats.speed;
+        agent.angularSpeed = stats.rotSpeed;
     }
 
     #region STATE_MACHINE

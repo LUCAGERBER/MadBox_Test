@@ -5,12 +5,19 @@ using UnityEngine;
 public class S_Player : S_Entity
 {
 
-    [SerializeField] protected float _speed = 5f;
-    [SerializeField] protected float _rotSpeed = 8f;
+    protected float speed = 5f;
+    protected float rotSpeed = 8f;
 
     protected Vector3 direction = Vector3.zero;
     protected Vector3 velocity = Vector3.zero;
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        speed = stats.speed;
+        rotSpeed = stats.rotSpeed;
+    }
 
     public void SetDirection(Vector3 dir)
     {
@@ -26,13 +33,13 @@ public class S_Player : S_Entity
     {
         if (direction.magnitude != 0)
         {
-            RotateTowards(_character.transform, direction, _rotSpeed);
+            RotateTowards(_character.transform, direction, rotSpeed);
         }
     }
 
     virtual protected void Move()
     {
-        velocity = direction * _speed * Time.fixedDeltaTime;
+        velocity = direction * speed * Time.fixedDeltaTime;
 
         rb.MovePosition(rb.position + velocity);
 

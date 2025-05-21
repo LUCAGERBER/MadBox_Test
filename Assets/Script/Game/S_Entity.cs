@@ -7,6 +7,8 @@ public class S_Entity : MonoBehaviour
 {
     protected const string SPEED_KEY = "speed";
 
+    [SerializeField] protected SO_EntityStats stats = null;
+
     [Header("Refs")]
     [SerializeField] protected Animator _animator = null;
     [SerializeField] protected Transform _character = null;
@@ -22,5 +24,15 @@ public class S_Entity : MonoBehaviour
     {
         Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
         target.rotation = Quaternion.Slerp(target.rotation, targetRotation, rotSpeed * Time.fixedDeltaTime);
+    }
+
+    virtual protected void Hurt(int dmg)
+    {
+
+    }
+
+    virtual protected void Death()
+    {
+
     }
 }
