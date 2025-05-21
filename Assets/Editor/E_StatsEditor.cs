@@ -8,6 +8,7 @@ public class E_StatsEditor : Editor
 {
     private const string SCRIPT_PROP = "m_Script";
 
+    private const string TIME_BEFORE_SPAWN_PROP = "_timeBeforeSpawn";
     private const string DASH_WINDUP_PROP = "_dashWindUpTime";
     private const string LOCKIN_DIRECTION_PROP = "_lockInDirectionPercent";
     private const string DASH_DISTANCE_PROP = "_dashDistance";
@@ -42,8 +43,10 @@ public class E_StatsEditor : Editor
                 break;
             case EntityType.Elite:
             case EntityType.Boss:
-            case EntityType.Player:
                 DrawPropertiesExcluding(serializedObject, SCRIPT_PROP, DASH_WINDUP_PROP, LOCKIN_DIRECTION_PROP, DASH_DISTANCE_PROP, DASH_DURATION_PROP, END_DASH_COOLDOWN_PROP, DASH_ANIMATIONCURVE_PROP);
+                break;
+            case EntityType.Player:
+                DrawPropertiesExcluding(serializedObject, SCRIPT_PROP, TIME_BEFORE_SPAWN_PROP, DASH_WINDUP_PROP, LOCKIN_DIRECTION_PROP, DASH_DISTANCE_PROP, DASH_DURATION_PROP, END_DASH_COOLDOWN_PROP, DASH_ANIMATIONCURVE_PROP);
                 break;
             default:
                 break;

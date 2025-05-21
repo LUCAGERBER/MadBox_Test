@@ -10,11 +10,8 @@ public class S_Enemy : S_Entity
 {
     protected const string ATTACK_ANIM = "Attack";
 
-    protected float timeBeforeAttack = .5f;
-    protected float attackCooldown = 2f;
-    protected float detectionRadius = 5f;
-    protected float detectEvery = .1f;
-    protected LayerMask playerLayer = default;
+
+    [SerializeField] protected GameObject _spawnerCanvas = null;
 
 
     [Header("Debug")]
@@ -22,9 +19,15 @@ public class S_Enemy : S_Entity
     [SerializeField] protected bool _drawGizmo = false;
     [SerializeField] protected bool _autoActivate = false;
 
-    protected Vector3 flattenDirection = Vector3.zero;
-
+    protected float timeBeforeAttack = .5f;
+    protected float attackCooldown = 2f;
+    protected float detectionRadius = 5f;
+    protected float detectEvery = .1f;
     protected float elapsedAtack = 0;
+
+    protected LayerMask playerLayer = default;
+
+    protected Vector3 flattenDirection = Vector3.zero;
 
     protected Transform target = null;
 
@@ -119,7 +122,26 @@ public class S_Enemy : S_Entity
 
     virtual public void Activate()
     {
-        SetModeMove();
+        StartCoroutine(TimeBeforeActivate(SetModeMove));
+    }
+
+    virtual protected IEnumerator TimeBeforeActivate(Action methodAfterWait)
+    {
+        float elapsed = 0f;
+
+        _character.gameObject.SetActive(false);
+        _spawnerCanvas.SetActive(true);
+
+        while(elapsed < _stats.TimeBeforeSpawn)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        _character.gameObject.SetActive(true);
+        _spawnerCanvas.SetActive(false);
+
+        methodAfterWait();
     }
 
     virtual protected void Move()

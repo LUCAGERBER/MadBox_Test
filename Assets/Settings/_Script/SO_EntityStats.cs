@@ -21,6 +21,8 @@ public class SO_EntityStats : ScriptableObject
     [Space()]
     [SerializeField] private EntityType _entityType = default;
 
+    [SerializeField] private float _timeBeforeSpawn = 2f;
+
     [Space()]
     //Bee specific settings
     [SerializeField] private float _dashWindUpTime = .3f;
@@ -42,6 +44,7 @@ public class SO_EntityStats : ScriptableObject
 
     public EntityType EntityType => _entityType;
 
+    public float TimeBeforeSpawn => _timeBeforeSpawn;
 
     public float DashWindUpTime => _dashWindUpTime;
     public float LockInDirectionPercent => _lockInDirectionPercent;
