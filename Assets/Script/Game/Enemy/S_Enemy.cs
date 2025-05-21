@@ -1,10 +1,7 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Scripting.APIUpdating;
-using UnityEngine.TextCore.Text;
 
 public class S_Enemy : S_Entity
 {
@@ -147,7 +144,7 @@ public class S_Enemy : S_Entity
     virtual protected void Move()
     {
         agent.SetDestination(target.position);
-        
+
         /*direction = target.position - transform.position;
 
         flattenDirection = new Vector3(direction.x, 0, direction.z);

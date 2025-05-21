@@ -528,6 +528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stats: {fileID: 11400000, guid: cbb008c95e42c5c4595947aec6d870f3, type: 2}
+  _baseWeapon: {fileID: 0}
   _animator: {fileID: 4278100186079492270}
   _character: {fileID: 2148928661061455951}
 --- !u!136 &6262649835704055941
@@ -549,7 +550,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.35
   m_Height: 2.4405203
   m_Direction: 1
   m_Center: {x: 0, y: 1.2062578, z: 0}

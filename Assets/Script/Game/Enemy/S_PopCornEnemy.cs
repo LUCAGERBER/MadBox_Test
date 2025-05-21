@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PhysicsD = RotaryHeart.Lib.PhysicsExtension.Physics;
+
 
 public class S_PopCornEnemy : S_Enemy
 {
@@ -100,12 +102,21 @@ public class S_PopCornEnemy : S_Enemy
         Vector3 startPos = transform.position;
         Vector3 dashDirection = targetPos - transform.position;
         Vector3 dashDirectionNormalized = dashDirection.normalized;
+        Ray ray;
+        RaycastHit hit;
 
         while (elapsed < dashDuration)
         {
             elapsed += Time.fixedDeltaTime;
 
             transform.position = Vector3.Lerp(startPos, startPos + dashDirectionNormalized * dashDistance, dashAnimationCurve.Evaluate(elapsed / dashDuration));
+
+            ray = new Ray(transform.position, dashDirectionNormalized);
+
+            PhysicsD.SphereCast(ray, _stats.DashAttackRadius, out hit, 1f, playerLayer, RotaryHeart.Lib.PhysicsExtension.PreviewCondition.Both, 0.02f, Color.green, Color.red);
+
+            if (hit.collider != null) 
+                Hit(hit.collider, _baseWeapon.Damages);
 
             yield return new WaitForFixedUpdate();
         }
@@ -124,4 +135,6 @@ public class S_PopCornEnemy : S_Enemy
 
         isDashing = false;
     }
+
+    
 }

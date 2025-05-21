@@ -50,11 +50,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stats: {fileID: 11400000, guid: 41d08a9df2efd334eaaf77020b7d4884, type: 2}
+  _baseWeapon: {fileID: 11400000, guid: 6cf9ea6b72a4cb44aace497cd4a577a0, type: 2}
   _animator: {fileID: 6926839794853975167}
   _character: {fileID: 6926839794863012759}
   _spawnerCanvas: {fileID: 4431551707578508569}
   _debugTarget: {fileID: 0}
-  _drawGizmo: 1
+  _drawGizmo: 0
   _autoActivate: 0
   _windUpShakeStrenght: 0.1
 --- !u!65 &6658828715661567863

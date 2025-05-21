@@ -8,6 +8,7 @@ public class S_Entity : MonoBehaviour
     protected const string SPEED_KEY = "speed";
 
     [SerializeField] protected SO_EntityStats _stats = null;
+    [SerializeField] protected SO_Weapon _baseWeapon = null;
 
     [Header("Refs")]
     [SerializeField] protected Animator _animator = null;
@@ -26,7 +27,16 @@ public class S_Entity : MonoBehaviour
         target.rotation = Quaternion.Slerp(target.rotation, targetRotation, rotSpeed * Time.fixedDeltaTime);
     }
 
-    virtual protected void Hurt(int dmg)
+    virtual protected void Hit(Collider hittedCollider, int hitDmg)
+    {
+        S_Entity hittedEntity = null;
+
+        hittedCollider.TryGetComponent<S_Entity>(out hittedEntity);
+
+        hittedEntity.Hurt(hitDmg);
+    }
+
+    virtual public void Hurt(int dmg)
     {
 
     }
