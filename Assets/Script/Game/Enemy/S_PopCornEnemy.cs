@@ -8,17 +8,29 @@ public class S_PopCornEnemy : S_Enemy
     private const string DASH_ATTACK_END_KEY = "endDash";
     public S_PopCornEnemy(Transform target) : base(target) { }
 
-    [SerializeField] private float _dashWindUpTime = .3f;
-    [SerializeField, Range(0, 1)] private float lockInDirectionPercent = 1f;
-    [SerializeField] private float _dashDistance = 5f;
-    [SerializeField] private float _dashDuration = .5f;
-    [SerializeField] private float _endDashCooldown = .2f;
-    [SerializeField] private AnimationCurve _dashAnimationCurve = null;
+    private float dashWindUpTime = .3f;
+    private float lockInDirectionPercent = 1f;
+    private float dashDistance = 5f;
+    private float dashDuration = .5f;
+    private float endDashCooldown = .2f;
+    private AnimationCurve dashAnimationCurve = null;
 
     [Space()]
     [SerializeField] private float _windUpShakeStrenght = 1f;
 
     private bool isDashing = false;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        dashWindUpTime = _stats.DashWindUpTime;
+        lockInDirectionPercent = _stats.LockInDirectionPercent;
+        dashDistance = _stats.DashDistance;
+        dashDuration = _stats.DashDuration;
+        endDashCooldown = _stats.EndDashCooldown;
+        dashAnimationCurve = _stats.DashAnimationCurve;
+    }
 
     protected override void DoActionAttack()
     {
@@ -60,7 +72,7 @@ public class S_PopCornEnemy : S_Enemy
 
         Agent.updateRotation = false;
 
-        while (elapsed < _dashWindUpTime)
+        while (elapsed < dashWindUpTime)
         {
             elapsed += Time.deltaTime;
             //faire trembler perso + feedback au sol
@@ -73,7 +85,7 @@ public class S_PopCornEnemy : S_Enemy
 
             dir = target.position - transform.position;
 
-            if (elapsed / _dashWindUpTime < lockInDirectionPercent) RotateTowards(transform, dir, 8f);
+            if (elapsed / dashWindUpTime < lockInDirectionPercent) RotateTowards(transform, dir, 8f);
             else if (targetPos == Vector3.zero) targetPos = target.position;
 
             yield return null;
@@ -89,11 +101,11 @@ public class S_PopCornEnemy : S_Enemy
         Vector3 dashDirection = targetPos - transform.position;
         Vector3 dashDirectionNormalized = dashDirection.normalized;
 
-        while (elapsed < _dashDuration)
+        while (elapsed < dashDuration)
         {
             elapsed += Time.fixedDeltaTime;
 
-            transform.position = Vector3.Lerp(startPos, startPos + dashDirectionNormalized * _dashDistance, _dashAnimationCurve.Evaluate(elapsed / _dashDuration));
+            transform.position = Vector3.Lerp(startPos, startPos + dashDirectionNormalized * dashDistance, dashAnimationCurve.Evaluate(elapsed / dashDuration));
 
             yield return new WaitForFixedUpdate();
         }
@@ -102,7 +114,7 @@ public class S_PopCornEnemy : S_Enemy
 
         elapsed = 0f;
 
-        while(elapsed < _endDashCooldown)
+        while(elapsed < endDashCooldown)
         {
             elapsed += Time.deltaTime;
             yield return null;

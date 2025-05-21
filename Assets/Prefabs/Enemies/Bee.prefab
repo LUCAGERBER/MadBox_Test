@@ -48,48 +48,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f7261e7a606de74bb1334758254a5b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: 41d08a9df2efd334eaaf77020b7d4884, type: 2}
+  _stats: {fileID: 11400000, guid: 41d08a9df2efd334eaaf77020b7d4884, type: 2}
   _animator: {fileID: 6926839794853975167}
   _character: {fileID: 6926839794863012759}
-  _timeBeforeAttack: 0.1
-  _attackCooldown: 5
-  _detectionRadius: 3
-  _detectEvery: 0.2
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
   _debugTarget: {fileID: 0}
   _drawGizmo: 1
   _autoActivate: 0
-  _dashWindUpTime: 1
-  lockInDirectionPercent: 0.8
-  _dashDistance: 10
-  _dashDuration: 0.5
-  _endDashCooldown: 0.2
-  _dashAnimationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   _windUpShakeStrenght: 0.1
 --- !u!65 &6658828715661567863
 BoxCollider:

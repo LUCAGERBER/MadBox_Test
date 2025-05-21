@@ -60,15 +60,15 @@ public class S_Enemy : S_Entity
 
     virtual protected void FetchSettings()
     {
-        agent.speed = stats.Speed;
-        agent.angularSpeed = stats.RotSpeed;
+        agent.speed = _stats.Speed;
+        agent.angularSpeed = _stats.RotSpeed;
 
-        timeBeforeAttack = stats.TimeBeforeAttack;
-        attackCooldown = stats.AttackCooldown;
-        detectionRadius = stats.DetectionRadius;
-        detectEvery = stats.DetectEvery;
+        timeBeforeAttack = _stats.TimeBeforeAttack;
+        attackCooldown = _stats.AttackCooldown;
+        detectionRadius = _stats.DetectionRadius;
+        detectEvery = _stats.DetectEvery;
 
-        playerLayer = stats.AttackLayer;
+        playerLayer = _stats.AttackLayer;
     }
 
     #region STATE_MACHINE

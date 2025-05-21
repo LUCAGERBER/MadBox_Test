@@ -7,7 +7,7 @@ public class S_Entity : MonoBehaviour
 {
     protected const string SPEED_KEY = "speed";
 
-    [SerializeField] protected SO_EntityStats stats = null;
+    [SerializeField] protected SO_EntityStats _stats = null;
 
     [Header("Refs")]
     [SerializeField] protected Animator _animator = null;

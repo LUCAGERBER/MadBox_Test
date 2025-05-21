@@ -23,14 +23,32 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _entityType: 0
-  _dashWindUpTime: 0.3
-  _lockInDirectionPercent: 1
-  _dashDistance: 5
+  _dashWindUpTime: 1
+  _lockInDirectionPercent: 0.8
+  _dashDistance: 10
   _dashDuration: 0.5
   _endDashCooldown: 0.2
   _dashAnimationCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

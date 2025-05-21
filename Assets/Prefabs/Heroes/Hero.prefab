@@ -527,11 +527,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a14ba4be0610ae4cad40ff33fb44021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: cbb008c95e42c5c4595947aec6d870f3, type: 2}
+  _stats: {fileID: 11400000, guid: cbb008c95e42c5c4595947aec6d870f3, type: 2}
   _animator: {fileID: 4278100186079492270}
   _character: {fileID: 2148928661061455951}
-  _speed: 10
-  _rotSpeed: 8
 --- !u!136 &6262649835704055941
 CapsuleCollider:
   m_ObjectHideFlags: 0
