@@ -23,11 +23,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _entityType: 0
+  _timeBeforeSpawn: 2
   _dashWindUpTime: 1
   _lockInDirectionPercent: 0.8
   _dashDistance: 10
   _dashDuration: 0.5
   _endDashCooldown: 0.2
+  _dashAttackRadius: 0.8
   _dashAnimationCurve:
     serializedVersion: 2
     m_Curve:
@@ -52,3 +54,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _invulnerabilityDuration: 0.5

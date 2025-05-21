@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class S_Player : S_Entity
 {
-    private int maxHp = 10;
-    private int currentHp = 0;
+    
     private float speed = 5f;
     private float rotSpeed = 8f;
 
@@ -56,15 +55,14 @@ public class S_Player : S_Entity
 
     public override void Hurt(int dmg)
     {
-        base.Hurt(dmg);
-
         if (invulnCoroutine != null) return;
 
-        currentHp -= dmg;
+        base.Hurt(dmg);
 
         if (currentHp > 0)
         {
             Debug.Log("Hurt");
+            _animator.Play(HURT_ANIM);
             invulnCoroutine = StartCoroutine(InvulnerabilityCoroutine());
         }
         else Death();
