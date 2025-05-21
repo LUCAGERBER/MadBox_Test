@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93f5db197b1135344bc789ae48084c6b, type: 3}
-  m_Name: Sting
+  m_Name: Longsword
   m_EditorClassIdentifier: 
-  _weaponObject: {fileID: 0}
-  _damages: 2
-  _timeBeforeAttack: 0.1
-  _attackCooldown: 5
-  _detectionRadius: 3
-  _detectEvery: 0.2
+  _weaponObject: {fileID: 15448191510330147, guid: bac79aa2a0057e5429a664d3f336da3d, type: 3}
+  _damages: 5
+  _timeBeforeAttack: 0.2
+  _attackCooldown: 2
+  _detectionRadius: 5
+  _detectEvery: 0.1

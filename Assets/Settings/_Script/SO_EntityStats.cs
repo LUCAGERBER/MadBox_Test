@@ -12,10 +12,6 @@ public class SO_EntityStats : ScriptableObject
     [SerializeField] private float _rotSpeed = 10f;
 
     [Space()]
-    [SerializeField] private float _timeBeforeAttack = .5f;
-    [SerializeField] private float _attackCooldown = 2f;
-    [SerializeField] private float _detectionRadius = 5f;
-    [SerializeField] private float _detectEvery = .1f;
     [SerializeField] private LayerMask _attackLayer = default;
 
     [Space()]
@@ -42,10 +38,6 @@ public class SO_EntityStats : ScriptableObject
     public float Speed => _speed;
     public float RotSpeed => _rotSpeed;
 
-    public float TimeBeforeAttack => _timeBeforeAttack;
-    public float AttackCooldown => _attackCooldown;
-    public float DetectionRadius => _detectionRadius;
-    public float DetectEvery => _detectEvery;
     public LayerMask AttackLayer => _attackLayer;
 
     public EntityType EntityType => _entityType;

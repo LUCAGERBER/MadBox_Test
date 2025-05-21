@@ -8,7 +8,6 @@ public class S_PopCornEnemy : S_Enemy
 {
     private const string DASH_ATTACK_ANIM = "Dash";
     private const string DASH_ATTACK_END_KEY = "endDash";
-    public S_PopCornEnemy(Transform target) : base(target) { }
 
     private float dashWindUpTime = .3f;
     private float lockInDirectionPercent = 1f;
@@ -44,7 +43,7 @@ public class S_PopCornEnemy : S_Enemy
 
         if (elapsedAtack < attackCooldown)
         {
-            if (!DetectPlayer())
+            if (!(DetectEntity(playerLayer, PLAYER_TAG).Count > 0))
                 SetModeMove();
 
             return;
@@ -54,7 +53,7 @@ public class S_PopCornEnemy : S_Enemy
         {
             elapsedAtack = 0;
 
-            if (DetectPlayer()) StartCoroutine(DashAttack());
+            if (DetectEntity(playerLayer, PLAYER_TAG).Count > 0) StartCoroutine(DashAttack());
             else SetModeMove();
         }
     }
@@ -113,7 +112,7 @@ public class S_PopCornEnemy : S_Enemy
 
             ray = new Ray(transform.position, dashDirectionNormalized);
 
-            PhysicsD.SphereCast(ray, _stats.DashAttackRadius, out hit, 1f, playerLayer, RotaryHeart.Lib.PhysicsExtension.PreviewCondition.Both, 0.02f, Color.green, Color.red);
+            Physics.SphereCast(ray, _stats.DashAttackRadius, out hit, 1f, playerLayer);
 
             if (hit.collider != null) 
                 Hit(hit.collider, _baseWeapon.Damages);

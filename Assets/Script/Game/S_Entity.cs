@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,7 @@ public class S_Entity : MonoBehaviour
     [SerializeField] protected Transform _character = null;
 
     [Header("HP Bar")]
+    [SerializeField] protected GameObject _hpBarParent = null;
     [SerializeField] protected Slider _hpSlider = null;
     [SerializeField] protected Slider _dmgSlider = null;
 
@@ -27,9 +29,12 @@ public class S_Entity : MonoBehaviour
     protected int maxHp = 10;
     protected int currentHp = 0;
 
+    protected SO_Weapon currentWeapon = null;
+
     protected Rigidbody rb = null;
     protected Collider myCollider = null;
 
+    protected Coroutine detectionCoroutine = null;
     protected Coroutine hpBarCoroutine = null;
 
     virtual protected void Awake()
@@ -38,10 +43,18 @@ public class S_Entity : MonoBehaviour
         myCollider = GetComponent<Collider>();
     }
 
+    virtual protected void Move() { }
+
     virtual protected void RotateTowards(Transform target, Vector3 direction, float rotSpeed)
     {
         Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
         target.rotation = Quaternion.Slerp(target.rotation, targetRotation, rotSpeed * Time.fixedDeltaTime);
+    }
+
+    virtual protected void Attack() 
+    {
+        if (detectionCoroutine != null) StopCoroutine(detectionCoroutine);
+        detectionCoroutine = null;
     }
 
     virtual protected void Hit(Collider hittedCollider, int hitDmg)
@@ -65,6 +78,31 @@ public class S_Entity : MonoBehaviour
     {
         myCollider.enabled = false;
         _animator.Play(DEATH_ANIM);
+    }
+
+    protected List<Collider> DetectEntity(LayerMask layer, string tag)
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, currentWeapon.DetectionRadius, layer);
+        List<Collider> results = new List<Collider>();
+
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag(tag))
+                results.Add(hit);
+        }
+
+        return results;
+    }
+
+    protected IEnumerator DetectionLoop(Action method, LayerMask layer, string tag,bool executeIfFound = true)
+    {
+        while (true)
+        {
+            if (executeIfFound && DetectEntity(layer, tag).Count > 0)
+                method();
+
+            yield return new WaitForSeconds(currentWeapon.DetectEvery);
+        }
     }
 
     private IEnumerator HealthBarCoroutine()

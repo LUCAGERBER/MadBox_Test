@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class S_Enemy : S_Entity
 {
     protected const string ATTACK_ANIM = "Attack";
-
+    protected const string PLAYER_TAG = "Player";
 
     [SerializeField] protected GameObject _spawnerCanvas = null;
 
@@ -30,16 +30,10 @@ public class S_Enemy : S_Entity
 
     private NavMeshAgent agent = null;
 
-    private Coroutine detectionCoroutine = null;
 
     private Action DoAction;
 
     public NavMeshAgent Agent => agent;
-
-    public S_Enemy(Transform target) 
-    { 
-        this.target = target == null ? _debugTarget : target;
-    }
 
     protected override void Awake()
     {
@@ -55,7 +49,11 @@ public class S_Enemy : S_Entity
             SetModeMove();
         }
 
+        currentWeapon = _baseWeapon;
+
         FetchSettings();
+
+        _hpBarParent.SetActive(false);
     }
 
     virtual protected void FetchSettings()
@@ -63,10 +61,10 @@ public class S_Enemy : S_Entity
         agent.speed = _stats.Speed;
         agent.angularSpeed = _stats.RotSpeed;
 
-        timeBeforeAttack = _stats.TimeBeforeAttack;
-        attackCooldown = _stats.AttackCooldown;
-        detectionRadius = _stats.DetectionRadius;
-        detectEvery = _stats.DetectEvery;
+        timeBeforeAttack = currentWeapon.TimeBeforeAttack;
+        attackCooldown = currentWeapon.AttackCooldown;
+        detectionRadius = currentWeapon.DetectionRadius;
+        detectEvery = currentWeapon.DetectEvery;
 
         playerLayer = _stats.AttackLayer;
     }
@@ -83,7 +81,7 @@ public class S_Enemy : S_Entity
     virtual protected void SetModeMove()
     {
         if (detectionCoroutine != null) StopCoroutine(detectionCoroutine);
-        detectionCoroutine = StartCoroutine(DetectionLoop(SetModeAttack));
+        detectionCoroutine = StartCoroutine(DetectionLoop(Attack, playerLayer, PLAYER_TAG));
 
         DoAction = DoActionMove;
     }
@@ -95,14 +93,6 @@ public class S_Enemy : S_Entity
 
     virtual protected void SetModeAttack()
     {
-        if (detectionCoroutine != null) StopCoroutine(detectionCoroutine);
-
-        _animator.SetFloat(SPEED_KEY, 0);
-
-        agent.SetDestination(transform.position);
-
-        elapsedAtack = attackCooldown;
-
         DoAction = DoActionAttack;
     }
 
@@ -137,12 +127,15 @@ public class S_Enemy : S_Entity
 
         _character.gameObject.SetActive(true);
         _spawnerCanvas.SetActive(false);
+        _hpBarParent.SetActive(true);
 
         methodAfterWait();
     }
 
-    virtual protected void Move()
+    override protected void Move()
     {
+        base.Move();
+
         agent.SetDestination(target.position);
 
         /*direction = target.position - transform.position;
@@ -152,30 +145,17 @@ public class S_Enemy : S_Entity
         velocity = flattenDirection.normalized * _speed * Time.fixedDeltaTime;*/
     }
 
-    protected IEnumerator DetectionLoop(Action method, bool executeIfFound = true)
+    protected override void Attack()
     {
-        while (true)
-        {
-            if (executeIfFound && DetectPlayer())
-                method();
+        base.Attack();
 
-            yield return new WaitForSeconds(detectEvery);
-        }
-    }
+        _animator.SetFloat(SPEED_KEY, 0);
 
-    protected bool DetectPlayer()
-    {
-        Collider[] hits = Physics.OverlapSphere(transform.position, detectionRadius, playerLayer);
+        agent.SetDestination(transform.position);
 
-        foreach (var hit in hits)
-        {
-            if (hit.CompareTag("Player"))
-            {
-                return true;
-            }
-        }
+        elapsedAtack = attackCooldown;
 
-        return false;
+        SetModeAttack();
     }
 
     public void SetTarget(Transform target)

@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class S_Player : S_Entity
 {
-    
+    protected const string ENEMY_TAG = "Enemy";
+    protected const string ATTACK_ANIM = "HeroAttack";
+
+    [SerializeField] protected S_AnimationEventCallback _animCallBack = null;
+    [SerializeField] private Transform _weaponSlot = null;
+    [SerializeField] private LayerMask _enemyLayer = default;
+
     private float speed = 5f;
     private float rotSpeed = 8f;
 
     private Vector3 direction = Vector3.zero;
     private Vector3 velocity = Vector3.zero;
+
+    private GameObject currentWeaponObj = null;
 
     private Coroutine invulnCoroutine = null;
 
@@ -22,6 +30,18 @@ public class S_Player : S_Entity
         rotSpeed = _stats.RotSpeed;
 
         currentHp = maxHp;
+
+        if (_weaponSlot.childCount == 0)
+            EquipWeapon(_baseWeapon);
+
+        _animCallBack.onHitHit += AnimCallBack_onHitHit;
+        _animCallBack.onHitAnimationEnded += AnimCallBack_onHitAnimationEnded;
+    }
+
+
+    private void Start()
+    {
+        detectionCoroutine = StartCoroutine(DetectionLoop(Attack, _enemyLayer, ENEMY_TAG));
     }
 
     public void SetDirection(Vector3 dir)
@@ -42,8 +62,10 @@ public class S_Player : S_Entity
         }
     }
 
-    virtual protected void Move()
+    override protected void Move()
     {
+        base.Move();
+
         velocity = direction * speed * Time.fixedDeltaTime;
 
         rb.MovePosition(rb.position + velocity);
@@ -51,6 +73,34 @@ public class S_Player : S_Entity
         LookRotation();
 
         _animator.SetFloat(SPEED_KEY, velocity.magnitude);
+
+    }
+
+    protected override void Attack()
+    {
+        base.Attack();
+
+        _animator.Play(ATTACK_ANIM);
+    }
+
+    private void AnimCallBack_onHitHit()
+    {
+        DetectEntity(_enemyLayer, ENEMY_TAG);
+    }
+
+    private void AnimCallBack_onHitAnimationEnded()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected void EquipWeapon(SO_Weapon wpn)
+    {
+        currentWeapon = wpn;
+
+        if(currentWeaponObj != null) 
+            Destroy(currentWeaponObj);
+
+        currentWeaponObj = Instantiate(wpn.WeaponObject, _weaponSlot);
     }
 
     public override void Hurt(int dmg)
@@ -61,7 +111,6 @@ public class S_Player : S_Entity
 
         if (currentHp > 0)
         {
-            Debug.Log("Hurt");
             _animator.Play(HURT_ANIM);
             invulnCoroutine = StartCoroutine(InvulnerabilityCoroutine());
         }
