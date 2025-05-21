@@ -16,5 +16,5 @@ MonoBehaviour:
   _damages: 5
   _timeBeforeAttack: 0.2
   _attackCooldown: 2
-  _detectionRadius: 5
+  _detectionRadius: 3
   _detectEvery: 0.1

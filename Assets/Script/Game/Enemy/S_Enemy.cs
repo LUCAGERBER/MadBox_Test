@@ -10,7 +10,6 @@ public class S_Enemy : S_Entity
 
     [SerializeField] protected GameObject _spawnerCanvas = null;
 
-
     [Header("Debug")]
     [SerializeField] protected Transform _debugTarget = null;
     [SerializeField] protected bool _drawGizmo = false;
@@ -22,6 +21,7 @@ public class S_Enemy : S_Entity
     protected float detectEvery = .1f;
     protected float elapsedAtack = 0;
 
+
     protected LayerMask playerLayer = default;
 
     protected Vector3 flattenDirection = Vector3.zero;
@@ -29,7 +29,6 @@ public class S_Enemy : S_Entity
     protected Transform target = null;
 
     private NavMeshAgent agent = null;
-
 
     private Action DoAction;
 
@@ -54,6 +53,7 @@ public class S_Enemy : S_Entity
         FetchSettings();
 
         _hpBarParent.SetActive(false);
+        myCollider.enabled = false;
     }
 
     virtual protected void FetchSettings()
@@ -128,6 +128,7 @@ public class S_Enemy : S_Entity
         _character.gameObject.SetActive(true);
         _spawnerCanvas.SetActive(false);
         _hpBarParent.SetActive(true);
+        myCollider.enabled = true;
 
         methodAfterWait();
     }
@@ -161,6 +162,13 @@ public class S_Enemy : S_Entity
     public void SetTarget(Transform target)
     {
         this.target = target;
+    }
+
+    protected override void Death()
+    {
+        base.Death();
+
+        SetModeVoid();
     }
 
     #region DEBUG

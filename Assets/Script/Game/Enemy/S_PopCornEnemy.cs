@@ -19,7 +19,7 @@ public class S_PopCornEnemy : S_Enemy
     [Space()]
     [SerializeField] private float _windUpShakeStrenght = 1f;
 
-    private bool isDashing = false;
+    private Coroutine dashCoroutine = null;
 
     protected override void Awake()
     {
@@ -37,7 +37,7 @@ public class S_PopCornEnemy : S_Enemy
     {
         base.DoActionAttack();
 
-        if (isDashing) return;
+        if (dashCoroutine != null) return;
 
         elapsedAtack += Time.fixedDeltaTime;
 
@@ -53,14 +53,19 @@ public class S_PopCornEnemy : S_Enemy
         {
             elapsedAtack = 0;
 
-            if (DetectEntity(playerLayer, PLAYER_TAG).Count > 0) StartCoroutine(DashAttack());
+            if (DetectEntity(playerLayer, PLAYER_TAG).Count > 0) dashCoroutine = StartCoroutine(DashAttack());
             else SetModeMove();
         }
     }
 
     private IEnumerator DashAttack()
     {
-        isDashing = true;
+        if (isDead)
+        {
+            Debug.Log("HERE");
+            SetModeVoid();
+            yield break;
+        }
 
         float elapsed = 0f;
         float x = 0;
@@ -132,8 +137,16 @@ public class S_PopCornEnemy : S_Enemy
 
         Agent.updateRotation = true;
 
-        isDashing = false;
+        dashCoroutine = null;
     }
 
-    
+    protected override void Death()
+    {
+        base.Death();
+
+        Debug.Log(dashCoroutine);
+        if (dashCoroutine != null) StopCoroutine(dashCoroutine);
+        dashCoroutine = null;
+
+    }
 }

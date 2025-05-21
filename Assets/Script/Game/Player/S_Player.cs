@@ -41,7 +41,7 @@ public class S_Player : S_Entity
 
     private void Start()
     {
-        detectionCoroutine = StartCoroutine(DetectionLoop(Attack, _enemyLayer, ENEMY_TAG));
+        SearchForEnemies();
     }
 
     public void SetDirection(Vector3 dir)
@@ -83,14 +83,28 @@ public class S_Player : S_Entity
         _animator.Play(ATTACK_ANIM);
     }
 
+    private void SearchForEnemies()
+    {
+        if(detectionCoroutine != null) StopCoroutine(detectionCoroutine);
+        detectionCoroutine = StartCoroutine(DetectionLoop(Attack, _enemyLayer, ENEMY_TAG));
+    }
+
     private void AnimCallBack_onHitHit()
     {
-        DetectEntity(_enemyLayer, ENEMY_TAG);
+        List<Collider> enemies = new List<Collider>(DetectEntity(_enemyLayer, ENEMY_TAG));
+        S_Enemy enemy = null;
+
+        foreach (Collider c in enemies)
+        {
+            c.TryGetComponent<S_Enemy>(out enemy);
+
+            if (enemy != null) enemy.Hurt(currentWeapon.Damages);
+        }
     }
 
     private void AnimCallBack_onHitAnimationEnded()
     {
-        throw new System.NotImplementedException();
+        Invoke("SearchForEnemies", currentWeapon.AttackCooldown);
     }
 
     protected void EquipWeapon(SO_Weapon wpn)
@@ -109,12 +123,7 @@ public class S_Player : S_Entity
 
         base.Hurt(dmg);
 
-        if (currentHp > 0)
-        {
-            _animator.Play(HURT_ANIM);
-            invulnCoroutine = StartCoroutine(InvulnerabilityCoroutine());
-        }
-        else Death();
+        invulnCoroutine = StartCoroutine(InvulnerabilityCoroutine());
     }
 
     protected override void Death()

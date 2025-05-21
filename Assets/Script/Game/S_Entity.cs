@@ -29,6 +29,8 @@ public class S_Entity : MonoBehaviour
     protected int maxHp = 10;
     protected int currentHp = 0;
 
+    protected bool isDead = false;
+
     protected SO_Weapon currentWeapon = null;
 
     protected Rigidbody rb = null;
@@ -72,10 +74,15 @@ public class S_Entity : MonoBehaviour
 
         if(hpBarCoroutine != null) StopCoroutine(hpBarCoroutine);
         hpBarCoroutine = StartCoroutine(HealthBarCoroutine());
+
+        if (currentHp > 0)
+            _animator.Play(HURT_ANIM);
+        else Death();
     }
 
     virtual protected void Death()
     {
+        isDead = true;
         myCollider.enabled = false;
         _animator.Play(DEATH_ANIM);
     }
