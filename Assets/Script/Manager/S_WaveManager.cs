@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 public class S_WaveManager : MonoBehaviour
 {
+    public delegate void OnEnemyDeath(float waveProgress);
+
     [SerializeField] private SO_WaveSettings _wavesSettings = null;
 
     [SerializeField] private Vector2 spawnRadiusRange = Vector2.one;
@@ -29,6 +31,9 @@ public class S_WaveManager : MonoBehaviour
     private int currentNbOfEliteSpawned = 0;
     private int currentNbOfBossSpawned = 0;
 
+    private int totalEnemiesInWave = 0;
+    private int totalEnemiesDefeatedInWave = 0;
+
     private int waveIndex = 0;
 
     private Wave currentWave = default;
@@ -36,6 +41,8 @@ public class S_WaveManager : MonoBehaviour
     private Coroutine waveCoroutine = null;
 
     public event UnityAction onLevelFinished;
+    public event UnityAction onNewWave;
+    public event OnEnemyDeath onEnemyDeath;
 
     private static S_WaveManager instance;
     public static S_WaveManager Instance => instance;
@@ -95,7 +102,12 @@ public class S_WaveManager : MonoBehaviour
         currentNbOfEliteLeft = currentWave.nbOfEliteEnemy;
         if (currentWave.isBossLevel) currentNbOfBossLeft++;
 
-        if(waveCoroutine != null) StopCoroutine(waveCoroutine);
+        totalEnemiesInWave = currentNbOfBasicLeft + currentNbOfEliteLeft + currentNbOfBossLeft;
+        totalEnemiesDefeatedInWave = 0;
+
+        onNewWave?.Invoke();
+
+        if (waveCoroutine != null) StopCoroutine(waveCoroutine);
         waveCoroutine = StartCoroutine(SpawnWave());
     }
 
@@ -176,14 +188,18 @@ public class S_WaveManager : MonoBehaviour
                 break;
         };
 
+        totalEnemiesDefeatedInWave++;
+
         _entityStorage.StoreEntity(enemy);
+
+        onEnemyDeath?.Invoke(totalEnemiesDefeatedInWave / (float)totalEnemiesInWave);
 
         CheckWaveProgress();
     }
 
     private void CheckWaveProgress()
     {
-        if ((currentNbOfBasicSpawned + currentNbOfEliteSpawned + currentNbOfBossSpawned > 0) || waveCoroutine != null) Debug.Log("Wave isn't over");
+        if (totalEnemiesDefeatedInWave < totalEnemiesInWave) Debug.Log("Wave isn't over");
         else EndWave();
     }
 

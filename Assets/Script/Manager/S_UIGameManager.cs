@@ -7,6 +7,7 @@ public class S_UIGameManager : MonoBehaviour
 {
     [Header("Screens")]
     [SerializeField] private S_MainMenu _mainMenu = null;
+    [SerializeField] private S_HUD _hud = null;
 
     public event UnityAction onUIGameStarted;
 
@@ -24,6 +25,19 @@ public class S_UIGameManager : MonoBehaviour
     private void Start()
     {
         _mainMenu.onPlay += MainMenu_onPlay;
+        S_WaveManager.Instance.onEnemyDeath += WaveManager_onEnemyDeath;
+        S_WaveManager.Instance.onNewWave += WaveManager_onNewWave;
+    }
+
+    private void WaveManager_onNewWave()
+    {
+        _hud.UpdateProgressBarProgress(0);
+    }
+
+    private void WaveManager_onEnemyDeath(float waveProgress)
+    {
+        Debug.Log(waveProgress);
+        _hud.UpdateProgressBarProgress(waveProgress);
     }
 
     private void MainMenu_onPlay()
@@ -34,5 +48,11 @@ public class S_UIGameManager : MonoBehaviour
     private void StartGame()
     {
         onUIGameStarted?.Invoke();
+    }
+
+    private void OnDestroy()
+    {
+        _mainMenu.onPlay -= MainMenu_onPlay;
+        S_WaveManager.Instance.onEnemyDeath -= WaveManager_onEnemyDeath;
     }
 }
