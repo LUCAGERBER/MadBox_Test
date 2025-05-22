@@ -29,14 +29,14 @@ public class S_UIGameManager : MonoBehaviour
         S_WaveManager.Instance.onNewWave += WaveManager_onNewWave;
     }
 
-    private void WaveManager_onNewWave()
+    private void WaveManager_onNewWave(int max)
     {
-        _hud.UpdateProgressBarProgress(0);
+        _hud.SetMaxIndent(max);
     }
 
     private void WaveManager_onEnemyDeath(float waveProgress, Vector3 enemyPos)
     {
-        _hud.UpdateProgressBarProgress(waveProgress);
+        //_hud.UpdateProgressBarProgress(waveProgress);
         _hud.SpawnEnemyDeathParticle(enemyPos);
     }
 

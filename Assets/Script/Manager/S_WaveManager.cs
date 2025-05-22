@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class S_WaveManager : MonoBehaviour
 {
     public delegate void OnEnemyDeath(float waveProgress, Vector3 enemyPos);
+    public delegate void OnNewWave(int nbOfEnemies);
 
     [SerializeField] private SO_WaveSettings _wavesSettings = null;
 
@@ -41,7 +42,7 @@ public class S_WaveManager : MonoBehaviour
     private Coroutine waveCoroutine = null;
 
     public event UnityAction onLevelFinished;
-    public event UnityAction onNewWave;
+    public event OnNewWave onNewWave;
     public event OnEnemyDeath onEnemyDeath;
 
     private static S_WaveManager instance;
@@ -105,7 +106,7 @@ public class S_WaveManager : MonoBehaviour
         totalEnemiesInWave = currentNbOfBasicLeft + currentNbOfEliteLeft + currentNbOfBossLeft;
         totalEnemiesDefeatedInWave = 0;
 
-        onNewWave?.Invoke();
+        onNewWave?.Invoke(totalEnemiesInWave);
 
         if (waveCoroutine != null) StopCoroutine(waveCoroutine);
         waveCoroutine = StartCoroutine(SpawnWave());

@@ -14,13 +14,25 @@ public class S_HUD : S_Screen
     [SerializeField] private float _timeToFillSlot = .2f;
     [SerializeField] private RectTransform _enemyDeathFeedback = null;
     [SerializeField] private RectTransform _handleBarTransform = null;
+    [SerializeField] private int _nbOfParticlesPerDeath = 4;
 
     private Coroutine progressBarCoroutine = null;
 
-    public void UpdateProgressBarProgress(float ratio)
+    private int nbOfParticlesToComplete = 0;
+    private int nbOfParticlesCollided = 0;
+
+    private void UpdateProgressBarProgress(float ratio)
     {
         if(progressBarCoroutine != null) StopCoroutine(progressBarCoroutine);
         progressBarCoroutine = StartCoroutine(FillProgressBar(ratio));
+    }
+
+    public void SetMaxIndent(int max)
+    {
+        nbOfParticlesToComplete = max * _nbOfParticlesPerDeath;
+        nbOfParticlesCollided = 0;
+
+        UpdateProgressBarProgress(nbOfParticlesCollided / (float)nbOfParticlesToComplete);
     }
 
     private IEnumerator FillProgressBar(float ratio)
@@ -60,7 +72,14 @@ public class S_HUD : S_Screen
             seq = DOTween.Sequence(rt);
 
             seq.Append(rt.DOMove(startPos + dir * Random.Range(20,25), Random.Range(.3f, .6f)).SetEase(Ease.OutCirc));
-            seq.Append(rt.DOMove(_handleBarTransform.position, Random.Range(1f, 1.5f)));
+            seq.Append(rt.DOMove(_handleBarTransform.position, Random.Range(1f, 1.5f))).OnComplete(
+                ()=>
+                {
+                    nbOfParticlesCollided++;
+                    UpdateProgressBarProgress(nbOfParticlesCollided / (float)nbOfParticlesToComplete);
+                    Destroy(rt.gameObject);
+                }
+            );
         }
     }
 
