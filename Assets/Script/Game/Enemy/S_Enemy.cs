@@ -28,6 +28,7 @@ public class S_Enemy : S_Entity
     protected LayerMask playerLayer = default;
 
     protected Vector3 flattenDirection = Vector3.zero;
+    protected Vector3 deathPos = Vector3.zero;
 
     protected Transform target = null;
 
@@ -37,6 +38,7 @@ public class S_Enemy : S_Entity
 
     public event OnEnemyDeath onDeath;
 
+    public Vector3 DeathPos => deathPos;
     public NavMeshAgent Agent => agent;
 
     protected override void Awake()
@@ -166,6 +168,8 @@ public class S_Enemy : S_Entity
     protected override void Death()
     {
         base.Death();
+
+        deathPos = transform.position;
 
         _animCallBack.onHitAnimationEnded += AnimationCallback_onHitAnimationEnded;
 

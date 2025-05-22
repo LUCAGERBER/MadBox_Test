@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class S_WaveManager : MonoBehaviour
 {
-    public delegate void OnEnemyDeath(float waveProgress);
+    public delegate void OnEnemyDeath(float waveProgress, Vector3 enemyPos);
 
     [SerializeField] private SO_WaveSettings _wavesSettings = null;
 
@@ -192,7 +192,7 @@ public class S_WaveManager : MonoBehaviour
 
         _entityStorage.StoreEntity(enemy);
 
-        onEnemyDeath?.Invoke(totalEnemiesDefeatedInWave / (float)totalEnemiesInWave);
+        onEnemyDeath?.Invoke(totalEnemiesDefeatedInWave / (float)totalEnemiesInWave, enemy.DeathPos);
 
         CheckWaveProgress();
     }

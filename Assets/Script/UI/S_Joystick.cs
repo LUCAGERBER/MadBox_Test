@@ -6,6 +6,7 @@ public class S_Joystick : MonoBehaviour
 {
     [SerializeField] private RectTransform _canvasRect = null;
     [SerializeField] private RectTransform _knob = null;
+    [SerializeField] private Camera _camera = null;
 
     private RectTransform rectT = null;
 
@@ -27,14 +28,14 @@ public class S_Joystick : MonoBehaviour
     {
         Vector2 localPoint = Vector2.zero;
 
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRect, pos, null, out localPoint);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRect, pos, _camera, out localPoint);
 
         rectT.anchoredPosition = localPoint;
     }
 
     public void UpdateKnobPosLocally(Vector2 pos)
     {
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(rectT, pos, null, out knobLocalPoint);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(rectT, pos, _camera, out knobLocalPoint);
 
         maxRadius = rectT.sizeDelta.x * 0.5f;
 

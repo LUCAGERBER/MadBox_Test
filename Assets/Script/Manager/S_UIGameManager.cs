@@ -34,10 +34,10 @@ public class S_UIGameManager : MonoBehaviour
         _hud.UpdateProgressBarProgress(0);
     }
 
-    private void WaveManager_onEnemyDeath(float waveProgress)
+    private void WaveManager_onEnemyDeath(float waveProgress, Vector3 enemyPos)
     {
-        Debug.Log(waveProgress);
         _hud.UpdateProgressBarProgress(waveProgress);
+        _hud.SpawnEnemyDeathParticle(enemyPos);
     }
 
     private void MainMenu_onPlay()
@@ -48,11 +48,5 @@ public class S_UIGameManager : MonoBehaviour
     private void StartGame()
     {
         onUIGameStarted?.Invoke();
-    }
-
-    private void OnDestroy()
-    {
-        _mainMenu.onPlay -= MainMenu_onPlay;
-        S_WaveManager.Instance.onEnemyDeath -= WaveManager_onEnemyDeath;
     }
 }
