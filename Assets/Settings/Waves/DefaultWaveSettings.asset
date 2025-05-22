@@ -35,5 +35,6 @@ MonoBehaviour:
     isBossLevel: 0
     nbOfBasicEnemy: 40
     nbOfEliteEnemy: 0
-    nbOfEnemiesPerBatch: 10
-    timeBetweenBatch: 6
+    nbOfEnemiesPerBatch: 2
+    timeBetweenBatch: 1
+  _timeBetweenWaves: 6

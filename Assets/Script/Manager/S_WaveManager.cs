@@ -43,6 +43,7 @@ public class S_WaveManager : MonoBehaviour
 
     public event UnityAction onLevelFinished;
     public event OnNewWave onNewWave;
+    public event UnityAction onWaveEnded;
     public event OnEnemyDeath onEnemyDeath;
 
     private static S_WaveManager instance;
@@ -121,7 +122,7 @@ public class S_WaveManager : MonoBehaviour
     private IEnumerator SpawnWave()
     {
         float timeBetweenBatch = currentWave.timeBetweenBatch;
-        float elapsed = 0;
+        float elapsed = timeBetweenBatch;
         
         while(currentNbOfBasicLeft + currentNbOfEliteLeft + currentNbOfBossLeft > 0)
         {
@@ -207,7 +208,29 @@ public class S_WaveManager : MonoBehaviour
     private void EndWave()
     {
         if (waveIndex + 1 >= _wavesSettings.Waves.Count) onLevelFinished?.Invoke();
-        else SpawnNextWave();
+        else
+            StartCoroutine(WaitForNewWave());
+    }
+
+    private IEnumerator WaitForNewWave()
+    {
+        float elapsed = 0f;
+
+        while(elapsed <= 2f)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        onWaveEnded?.Invoke();
+        
+        while(elapsed <= _wavesSettings.TimeBetweenWaves)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        SpawnNextWave();
     }
 
     private void OnDestroy()

@@ -57,30 +57,33 @@ public class S_HUD : S_Screen
         Vector2 anchoredPos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvas.transform as RectTransform, screenPos, _uiCamera,out anchoredPos);
 
+        for (int i = 0; i < _nbOfParticlesPerDeath; i++)
+            InstantiateAndTweenFeedback(anchoredPos);
+    }
+
+    private void InstantiateAndTweenFeedback(Vector2 anchoredPos)
+    {
         RectTransform rt;
         Sequence seq;
         Vector3 startPos;
         Vector3 dir;
 
-        for (int i = 0; i < 4; i++)
-        {
-            rt = Instantiate(_enemyDeathFeedback, _canvas.transform);
-            rt.anchoredPosition = anchoredPos;
-            startPos = rt.position;
-            dir = new Vector3(Random.Range(-1,1f), Random.Range(-1,1f),0).normalized;
+        rt = Instantiate(_enemyDeathFeedback, _canvas.transform);
+        rt.anchoredPosition = anchoredPos;
+        startPos = rt.position;
+        dir = new Vector3(Random.Range(-1, 1f), Random.Range(-1, 1f), 0).normalized;
 
-            seq = DOTween.Sequence(rt);
+        seq = DOTween.Sequence(rt);
 
-            seq.Append(rt.DOMove(startPos + dir * Random.Range(20,25), Random.Range(.3f, .6f)).SetEase(Ease.OutCirc));
-            seq.Append(rt.DOMove(_handleBarTransform.position, Random.Range(1f, 1.5f))).OnComplete(
-                ()=>
-                {
-                    nbOfParticlesCollided++;
-                    UpdateProgressBarProgress(nbOfParticlesCollided / (float)nbOfParticlesToComplete);
-                    Destroy(rt.gameObject);
-                }
-            );
-        }
+        seq.Append(rt.DOMove(startPos + dir * Random.Range(20, 25), Random.Range(.3f, .6f)).SetEase(Ease.OutCirc));
+        seq.Append(rt.DOMove(_handleBarTransform.position, Random.Range(1f, 1.5f))).OnComplete(
+            () =>
+            {
+                nbOfParticlesCollided++;
+                UpdateProgressBarProgress(nbOfParticlesCollided / (float)nbOfParticlesToComplete);
+                Destroy(rt.gameObject);
+            }
+        );
     }
 
 }

@@ -8,6 +8,7 @@ public class S_UIGameManager : MonoBehaviour
     [Header("Screens")]
     [SerializeField] private S_MainMenu _mainMenu = null;
     [SerializeField] private S_HUD _hud = null;
+    [SerializeField] private GameObject _waveAnnouncer = null;
 
     public event UnityAction onUIGameStarted;
 
@@ -27,10 +28,17 @@ public class S_UIGameManager : MonoBehaviour
         _mainMenu.onPlay += MainMenu_onPlay;
         S_WaveManager.Instance.onEnemyDeath += WaveManager_onEnemyDeath;
         S_WaveManager.Instance.onNewWave += WaveManager_onNewWave;
+        S_WaveManager.Instance.onWaveEnded += WaveManager_onWaveEnded;
+    }
+
+    private void WaveManager_onWaveEnded()
+    {
+        _waveAnnouncer.SetActive(true);
     }
 
     private void WaveManager_onNewWave(int max)
     {
+        _waveAnnouncer.SetActive(false);
         _hud.SetMaxIndent(max);
     }
 
