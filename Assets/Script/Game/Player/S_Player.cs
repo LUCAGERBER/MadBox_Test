@@ -7,7 +7,6 @@ public class S_Player : S_Entity
     protected const string ENEMY_TAG = "Enemy";
     protected const string ATTACK_ANIM = "HeroAttack";
 
-    [SerializeField] protected S_AnimationEventCallback _animCallBack = null;
     [SerializeField] private Transform _weaponSlot = null;
     [SerializeField] private LayerMask _enemyLayer = default;
 
@@ -143,5 +142,14 @@ public class S_Player : S_Entity
         }
 
         invulnCoroutine = null;
+    }
+
+    private void OnDestroy()
+    {
+        if (_animCallBack != null)
+        {
+            _animCallBack.onHitHit -= AnimCallBack_onHitHit;
+            _animCallBack.onHitAnimationEnded -= AnimCallBack_onHitAnimationEnded;
+        }
     }
 }

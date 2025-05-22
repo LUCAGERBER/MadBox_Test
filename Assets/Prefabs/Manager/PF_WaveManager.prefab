@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _wavesSettings: {fileID: 11400000, guid: 40f196657aa0f03468362822317f79db, type: 2}
-  spawnRadiusRange: {x: 5, y: 10}
+  spawnRadiusRange: {x: 5, y: 15}
   _basicEnemy: {fileID: 4760284710733275832, guid: 41e04faa14fb7a34e8b16750ec910fc3, type: 3}
   _eliteEnemy: {fileID: 0}
   _bossEnemy: {fileID: 0}

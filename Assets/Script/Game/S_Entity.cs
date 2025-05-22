@@ -13,10 +13,12 @@ public class S_Entity : MonoBehaviour
 
     [SerializeField] protected SO_EntityStats _stats = null;
     [SerializeField] protected SO_Weapon _baseWeapon = null;
+    [SerializeField] protected EntityType _type = EntityType.Player;
 
     [Header("Refs")]
     [SerializeField] protected Animator _animator = null;
     [SerializeField] protected Transform _character = null;
+    [SerializeField] protected S_AnimationEventCallback _animCallBack = null;
 
     [Header("HP Bar")]
     [SerializeField] protected GameObject _hpBarParent = null;
@@ -38,6 +40,8 @@ public class S_Entity : MonoBehaviour
 
     protected Coroutine detectionCoroutine = null;
     protected Coroutine hpBarCoroutine = null;
+
+    public EntityType Type => _type;
 
     virtual protected void Awake()
     {
@@ -65,7 +69,8 @@ public class S_Entity : MonoBehaviour
 
         hittedCollider.TryGetComponent<S_Entity>(out hittedEntity);
 
-        hittedEntity.Hurt(hitDmg);
+        if(hittedEntity != null) 
+            hittedEntity.Hurt(hitDmg);
     }
 
     virtual public void Hurt(int dmg)
@@ -136,5 +141,12 @@ public class S_Entity : MonoBehaviour
         }
 
         hpBarCoroutine = null;
+    }
+
+    virtual public void ResetEntity()
+    {
+        _hpSlider.value = 1;
+        _dmgSlider.value = 1;
+        _hpBarParent.SetActive(false);
     }
 }

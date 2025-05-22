@@ -52,8 +52,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stats: {fileID: 11400000, guid: 41d08a9df2efd334eaaf77020b7d4884, type: 2}
   _baseWeapon: {fileID: 11400000, guid: 6cf9ea6b72a4cb44aace497cd4a577a0, type: 2}
+  _type: 0
   _animator: {fileID: 6926839794853975167}
   _character: {fileID: 6926839794863012759}
+  _animCallBack: {fileID: 6694458322529148023}
   _hpBarParent: {fileID: 8161884585405247856}
   _hpSlider: {fileID: 3878567204917891193}
   _dmgSlider: {fileID: 5787687870272391800}
@@ -83,6 +85,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _spawnerCanvas: {fileID: 4431551707578508569}
+  _deathPs: {fileID: 2376524068420074458, guid: db4ae81df56441c4f98420ade29d34b1, type: 3}
   _debugTarget: {fileID: 0}
   _drawGizmo: 0
   _autoActivate: 0
@@ -732,6 +735,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6926839794863012759}
   - component: {fileID: 6926839794853975167}
+  - component: {fileID: 6694458322529148023}
   m_Layer: 8
   m_Name: Bee
   m_TagString: Enemy
@@ -777,6 +781,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6694458322529148023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6926839794863368119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed24298c7484a34ba353f206e256b36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6926839794863368121
 GameObject:
   m_ObjectHideFlags: 0

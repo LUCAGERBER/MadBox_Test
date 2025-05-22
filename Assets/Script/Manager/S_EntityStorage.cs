@@ -23,7 +23,7 @@ public class S_EntityStorage : MonoBehaviour
         entities.Add(new List<Transform>());
     }
 
-    public void AddEntityToStorage(S_Entity entity, EntityType type)
+    public void AddNewEntityToStorage(S_Entity entity, EntityType type)
     {
         if (entities[count].Count > _entityPerRow-1)
         {
@@ -68,6 +68,33 @@ public class S_EntityStorage : MonoBehaviour
         basicEnemy.RemoveAt(0);
 
         return enemy;
+    }
+
+    public void StoreEntity(S_Entity entity)
+    {
+        switch (entity.Type)
+        {
+            case EntityType.PopCorn:
+                basicEnemy.Add((S_PopCornEnemy)entity);
+                break;
+            case EntityType.Elite:
+                Debug.LogWarning($"There is no List to store : {entity.Type}");
+                break;
+            case EntityType.Boss:
+                Debug.LogWarning($"There is no List to store : {entity.Type}");
+                break;
+            case EntityType.Player:
+                Debug.LogWarning($"There is no List to store : {entity.Type}");
+                break;
+            default:
+                break;
+        };
+
+        entity.transform.parent = transform;
+        entity.transform.localPosition = Vector3.zero;
+        entity.gameObject.SetActive(false);
+
+        entity.ResetEntity();
     }
 }
 

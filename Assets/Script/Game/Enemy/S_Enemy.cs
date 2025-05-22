@@ -2,13 +2,17 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class S_Enemy : S_Entity
 {
+    public delegate void OnEnemyDeath(S_Enemy enemy);
+
     protected const string ATTACK_ANIM = "Attack";
     protected const string PLAYER_TAG = "Player";
 
     [SerializeField] protected GameObject _spawnerCanvas = null;
+    [SerializeField] protected GameObject _deathPs = null;
 
     [Header("Debug")]
     [SerializeField] protected Transform _debugTarget = null;
@@ -21,7 +25,6 @@ public class S_Enemy : S_Entity
     protected float detectEvery = .1f;
     protected float elapsedAtack = 0;
 
-
     protected LayerMask playerLayer = default;
 
     protected Vector3 flattenDirection = Vector3.zero;
@@ -31,6 +34,8 @@ public class S_Enemy : S_Entity
     private NavMeshAgent agent = null;
 
     private Action DoAction;
+
+    public event OnEnemyDeath onDeath;
 
     public NavMeshAgent Agent => agent;
 
@@ -138,12 +143,6 @@ public class S_Enemy : S_Entity
         base.Move();
 
         agent.SetDestination(target.position);
-
-        /*direction = target.position - transform.position;
-
-        flattenDirection = new Vector3(direction.x, 0, direction.z);
-
-        velocity = flattenDirection.normalized * _speed * Time.fixedDeltaTime;*/
     }
 
     protected override void Attack()
@@ -168,7 +167,27 @@ public class S_Enemy : S_Entity
     {
         base.Death();
 
+        _animCallBack.onHitAnimationEnded += AnimationCallback_onHitAnimationEnded;
+
         SetModeVoid();
+    }
+
+    private void AnimationCallback_onHitAnimationEnded()
+    {
+        _animCallBack.onHitAnimationEnded -= AnimationCallback_onHitAnimationEnded;
+
+        Instantiate(_deathPs, transform.position - new Vector3(0, 1.5f, 0), _deathPs.transform.rotation);
+
+        onDeath?.Invoke(this);
+    }
+
+    public override void ResetEntity()
+    {
+        base.ResetEntity();
+
+        isDead = false;
+        agent.updateRotation = true;
+        FetchSettings();
     }
 
     #region DEBUG

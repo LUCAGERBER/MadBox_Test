@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class S_WaveManager : MonoBehaviour
 {
@@ -34,6 +35,8 @@ public class S_WaveManager : MonoBehaviour
 
     private Coroutine waveCoroutine = null;
 
+    public event UnityAction onLevelFinished;
+
     private static S_WaveManager instance;
     public static S_WaveManager Instance => instance;
 
@@ -56,7 +59,7 @@ public class S_WaveManager : MonoBehaviour
     private void GameManager_onGameStarted()
     {
         waveIndex = 0;
-        StartWaves();
+        StartWave();
     }
 
     private void SearchForHighestEntityNeeded()
@@ -78,12 +81,14 @@ public class S_WaveManager : MonoBehaviour
         {
             enemy = Instantiate(_basicEnemy, _entityStorage.transform);
             enemy.SetTarget(_player.transform);
-            _entityStorage.AddEntityToStorage(enemy, EntityType.PopCorn);
+            _entityStorage.AddNewEntityToStorage(enemy, EntityType.PopCorn);
         }
     }
 
-    private void StartWaves()
+    private void StartWave()
     {
+        Debug.Log($"There is {_wavesSettings.Waves.Count} waves and we're currently starting Wave : {waveIndex}");
+
         currentWave = _wavesSettings.Waves[waveIndex];
 
         currentNbOfBasicLeft = currentWave.nbOfBasicEnemy;
@@ -92,6 +97,12 @@ public class S_WaveManager : MonoBehaviour
 
         if(waveCoroutine != null) StopCoroutine(waveCoroutine);
         waveCoroutine = StartCoroutine(SpawnWave());
+    }
+
+    private void SpawnNextWave()
+    {
+        waveIndex++;
+        StartWave();
     }
 
     private IEnumerator SpawnWave()
@@ -141,13 +152,45 @@ public class S_WaveManager : MonoBehaviour
             enemy.gameObject.SetActive(true);
             enemy.transform.parent = null;
             enemy.Agent.Warp(_player.transform.position + new Vector3(x, 0, z));
+            enemy.onDeath += Enemy_onDeath;
             enemy.Activate();
         }
     }
 
+    private void Enemy_onDeath(S_Enemy enemy)
+    {
+        switch (enemy.Type)
+        {
+            case EntityType.PopCorn:
+                currentNbOfBasicSpawned--;
+                break;
+            case EntityType.Elite:
+                currentNbOfEliteSpawned--;
+                break;
+            case EntityType.Boss:
+                currentNbOfBossSpawned--;
+                break;
+            case EntityType.Player:
+                break;
+            default:
+                break;
+        };
+
+        _entityStorage.StoreEntity(enemy);
+
+        CheckWaveProgress();
+    }
+
+    private void CheckWaveProgress()
+    {
+        if ((currentNbOfBasicSpawned + currentNbOfEliteSpawned + currentNbOfBossSpawned > 0) || waveCoroutine != null) Debug.Log("Wave isn't over");
+        else EndWave();
+    }
+
     private void EndWave()
     {
-
+        if (waveIndex + 1 >= _wavesSettings.Waves.Count) onLevelFinished?.Invoke();
+        else SpawnNextWave();
     }
 
     private void OnDestroy()

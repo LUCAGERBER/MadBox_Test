@@ -62,7 +62,6 @@ public class S_PopCornEnemy : S_Enemy
     {
         if (isDead)
         {
-            Debug.Log("HERE");
             SetModeVoid();
             yield break;
         }
@@ -144,9 +143,10 @@ public class S_PopCornEnemy : S_Enemy
     {
         base.Death();
 
-        Debug.Log(dashCoroutine);
         if (dashCoroutine != null) StopCoroutine(dashCoroutine);
         dashCoroutine = null;
 
     }
+
+    
 }

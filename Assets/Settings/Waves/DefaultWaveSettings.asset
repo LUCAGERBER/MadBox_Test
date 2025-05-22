@@ -28,12 +28,12 @@ MonoBehaviour:
   - waveName: 10 base 2 elite
     isBossLevel: 0
     nbOfBasicEnemy: 10
-    nbOfEliteEnemy: 2
+    nbOfEliteEnemy: 0
     nbOfEnemiesPerBatch: 6
     timeBetweenBatch: 10
   - waveName: 40 base 10 elite
     isBossLevel: 0
     nbOfBasicEnemy: 40
-    nbOfEliteEnemy: 10
+    nbOfEliteEnemy: 0
     nbOfEnemiesPerBatch: 10
     timeBetweenBatch: 6
