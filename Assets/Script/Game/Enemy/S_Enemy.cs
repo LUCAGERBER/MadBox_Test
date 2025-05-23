@@ -13,6 +13,7 @@ public class S_Enemy : S_Entity
 
     [SerializeField] protected GameObject _spawnerCanvas = null;
     [SerializeField] protected GameObject _deathPs = null;
+    [SerializeField] protected ParticleSystem _hurtPs = null;
 
     [Header("Debug")]
     [SerializeField] protected Transform _debugTarget = null;
@@ -163,6 +164,12 @@ public class S_Enemy : S_Entity
     public void SetTarget(Transform target)
     {
         this.target = target;
+    }
+
+    public override void Hurt(int dmg)
+    {
+        _hurtPs.Play();
+        base.Hurt(dmg);
     }
 
     protected override void Death()
