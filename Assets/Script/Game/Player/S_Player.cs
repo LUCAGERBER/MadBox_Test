@@ -136,7 +136,14 @@ public class S_Player : S_Entity
 
         base.Hurt(dmg);
 
+        S_CameraShakeManager.Shake(dmg +2, .1f);
+
         invulnCoroutine = StartCoroutine(InvulnerabilityCoroutine());
+
+#if UNITY_ANDROID || UNITY_IOS
+        Handheld.Vibrate();
+#endif
+
     }
 
     protected override void Death()
