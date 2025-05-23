@@ -2091,6 +2091,18 @@ PrefabInstance:
       propertyPath: _uiCamera
       value: 
       objectReference: {fileID: 1703035422}
+    - target: {fileID: 6263118505361110234, guid: ef612773f60789d448f058d2e9b61d1d, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263118505361110234, guid: ef612773f60789d448f058d2e9b61d1d, type: 3}
+      propertyPath: m_Color.g
+      value: 0.76019466
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263118505361110234, guid: ef612773f60789d448f058d2e9b61d1d, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8406543739064212312, guid: ef612773f60789d448f058d2e9b61d1d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

@@ -71,7 +71,7 @@ public class S_HUD : S_Screen
         rt = Instantiate(_enemyDeathFeedback, _canvas.transform);
         rt.anchoredPosition = anchoredPos;
         startPos = rt.position;
-        dir = new Vector3(Random.Range(-1, 1f), Random.Range(-1, 1f), 0).normalized;
+        dir = new Vector3(Random.Range(-1, 1f), Random.Range(-1, 1f), Random.Range(-1, 1f)).normalized;
 
         seq = DOTween.Sequence(rt);
 
