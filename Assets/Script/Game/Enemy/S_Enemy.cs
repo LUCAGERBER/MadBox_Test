@@ -166,7 +166,7 @@ public class S_Enemy : S_Entity
         this.target = target;
     }
 
-    public override void Hurt(int dmg)
+    public override void Hurt(int dmg, bool forceAnim = true)
     {
         _hurtPs.Play();
         base.Hurt(dmg);

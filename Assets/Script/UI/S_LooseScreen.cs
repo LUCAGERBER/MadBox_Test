@@ -33,6 +33,7 @@ public class S_LooseScreen : S_EndScreen
             elapsed += Time.unscaledDeltaTime;
 
             _mainCamera.transform.position += _mainCamera.transform.forward * (_zoomInStrenght * Time.unscaledDeltaTime);
+            _mainCamera.transform.position += -_mainCamera.transform.up * (_zoomInStrenght * Time.unscaledDeltaTime);
 
             yield return null;
         }

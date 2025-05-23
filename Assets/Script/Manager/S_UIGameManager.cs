@@ -64,6 +64,7 @@ public class S_UIGameManager : MonoBehaviour
 
     private void WaveManager_onNewWave(int max)
     {
+        if (!_hud.isActiveAndEnabled) _hud.Show();
         _waveAnnouncer.SetActive(false);
         _hud.SetMaxIndent(max);
     }
@@ -77,7 +78,6 @@ public class S_UIGameManager : MonoBehaviour
     private void MainMenu_onPlay()
     {
         StartGame();
-        _hud.Show();
     }
 
     private void StartGame()

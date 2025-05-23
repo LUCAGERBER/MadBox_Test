@@ -10,12 +10,14 @@ public class S_Player : S_Entity
 
     protected const string ENEMY_TAG = "Enemy";
     protected const string ATTACK_ANIM = "HeroAttack";
+    protected const string HURT_TRIGGER = "hurt";
 
     [SerializeField] private Transform _weaponSlot = null;
     [SerializeField] private LayerMask _enemyLayer = default;
     [SerializeField] private SpriteRenderer _attackRangeIndicator = null;
     [SerializeField] private SkinnedMeshRenderer _bodyRenderer = null;
     [SerializeField] private float _invulnBlinkRate = .25f;
+    [SerializeField] private ParticleSystem _weaponStrikeParticleSystem = null;
 
     private float speed = 5f;
     private float rotSpeed = 8f;
@@ -104,6 +106,7 @@ public class S_Player : S_Entity
     {
         List<Collider> enemies = new List<Collider>(DetectEntity(_enemyLayer, ENEMY_TAG));
         S_Enemy enemy = null;
+        bool hitSomething = false;
 
         foreach (Collider c in enemies)
         {
@@ -112,10 +115,19 @@ public class S_Player : S_Entity
             if (enemy != null)
             {
                 enemy.Hurt(currentWeapon.Damages);
-                S_CameraShakeManager.Shake(currentWeapon.Damages,.1f);
-                S_TimeManager.DoSlowMotion(.5f,.1f);
+                hitSomething = true;
             }
         }
+
+        if (hitSomething)
+            HitFeedback();
+    }
+
+    private void HitFeedback()
+    {
+        S_CameraShakeManager.Shake(currentWeapon.Damages, .1f);
+        S_TimeManager.DoSlowMotion(.5f, .1f);
+        _weaponStrikeParticleSystem.Play();
     }
 
     private void AnimCallBack_onHitAnimationEnded()
@@ -136,20 +148,21 @@ public class S_Player : S_Entity
         _attackRangeIndicator.transform.localScale = Vector3.one * currentWeapon.DetectionRadius * 2;
     }
 
-    public override void Hurt(int dmg)
+    public override void Hurt(int dmg, bool forceAnim = true)
     {
         if (invulnCoroutine != null) return;
 
-        base.Hurt(dmg);
+        base.Hurt(dmg, false);
 
         S_CameraShakeManager.Shake(dmg +2, .1f);
 
-        invulnCoroutine = StartCoroutine(InvulnerabilityCoroutine());
+        if(!isDead) invulnCoroutine = StartCoroutine(InvulnerabilityCoroutine());
+
+        _animator.SetTrigger(HURT_TRIGGER);
 
 #if UNITY_ANDROID || UNITY_IOS
         Handheld.Vibrate();
 #endif
-
     }
 
     protected override void Death()
@@ -157,6 +170,9 @@ public class S_Player : S_Entity
         base.Death();
         if (detectionCoroutine != null) StopCoroutine(detectionCoroutine);
         detectionCoroutine = null;
+
+        _attackRangeIndicator.gameObject.SetActive(false);
+
         onDeath?.Invoke();
     }
 

@@ -14,7 +14,6 @@ public class S_GameManager : MonoBehaviour
     public event OnAttackCompleted onPlayerAttackCompleted;
 
     public event UnityAction onGameStarted;
-    public event UnityAction onNewWaveStarting;
 
     private static S_GameManager instance;
     public static S_GameManager Instance => instance;

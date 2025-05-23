@@ -73,7 +73,7 @@ public class S_Entity : MonoBehaviour
             hittedEntity.Hurt(hitDmg);
     }
 
-    virtual public void Hurt(int dmg)
+    virtual public void Hurt(int dmg, bool forceAnim = true)
     {
         currentHp -= dmg;
 
@@ -81,7 +81,11 @@ public class S_Entity : MonoBehaviour
         hpBarCoroutine = StartCoroutine(HealthBarCoroutine());
 
         if (currentHp > 0)
-            _animator.Play(HURT_ANIM);
+        {
+            if(forceAnim) 
+                _animator.Play(HURT_ANIM);
+            Debug.Log($"Hurt, current HP : {currentHp}");
+        }
         else Death();
     }
 

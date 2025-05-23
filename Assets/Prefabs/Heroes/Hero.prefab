@@ -528,6 +528,7 @@ Transform:
   - {fileID: 2148928661061455951}
   - {fileID: 233238285610438115}
   - {fileID: 4744152032515066061}
+  - {fileID: 8442404744480227956}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5138986107327123511
@@ -582,7 +583,8 @@ MonoBehaviour:
     m_Bits: 128
   _attackRangeIndicator: {fileID: 1397537169177077712}
   _bodyRenderer: {fileID: 1042267208002864592}
-  invulnBlinkRate: 0.25
+  _invulnBlinkRate: 0.25
+  _weaponStrikeParticleSystem: {fileID: 8557246333546864667}
 --- !u!136 &6262649835704055941
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -602,7 +604,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.35
+  m_Radius: 0.5
   m_Height: 2.4405203
   m_Direction: 1
   m_Center: {x: 0, y: 1.2062578, z: 0}
@@ -1384,4 +1386,71 @@ MonoBehaviour:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2789022071899025540, guid: 24a5174875b1b7448843637c0fe57468, type: 3}
   m_PrefabInstance: {fileID: 5926676342233509193}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6601333475911194945
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3206923099687242365}
+    m_Modifications:
+    - target: {fileID: 3365833449847249717, guid: 4493a81fa18349542a97256f27c3f0ed, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3365833449847249717, guid: 4493a81fa18349542a97256f27c3f0ed, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3365833449847249717, guid: 4493a81fa18349542a97256f27c3f0ed, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3365833449847249717, guid: 4493a81fa18349542a97256f27c3f0ed, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3365833449847249717, guid: 4493a81fa18349542a97256f27c3f0ed, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3365833449847249717, guid: 4493a81fa18349542a97256f27c3f0ed, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3365833449847249717, guid: 4493a81fa18349542a97256f27c3f0ed, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3365833449847249717, guid: 4493a81fa18349542a97256f27c3f0ed, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3365833449847249717, guid: 4493a81fa18349542a97256f27c3f0ed, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3365833449847249717, guid: 4493a81fa18349542a97256f27c3f0ed, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3873939122949722441, guid: 4493a81fa18349542a97256f27c3f0ed, type: 3}
+      propertyPath: m_Name
+      value: PS_LongswordAttack
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4493a81fa18349542a97256f27c3f0ed, type: 3}
+--- !u!4 &8442404744480227956 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3365833449847249717, guid: 4493a81fa18349542a97256f27c3f0ed, type: 3}
+  m_PrefabInstance: {fileID: 6601333475911194945}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8557246333546864667 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3269006268408789338, guid: 4493a81fa18349542a97256f27c3f0ed, type: 3}
+  m_PrefabInstance: {fileID: 6601333475911194945}
   m_PrefabAsset: {fileID: 0}

@@ -27,11 +27,18 @@ public class S_ControllerManager : MonoBehaviour
         _holdTouch.action.started += ControllerManager_OnHoldTouch_started;
         _holdTouch.action.canceled += ControllerManager_OnHoldTouch_canceled;
 
+        playerInput.DeactivateInput();
     }
 
     private void Start()
     {
+        S_GameManager.Instance.onGameStarted += GameManager_onGameStarted;
         S_GameManager.Instance.onEndGame += GameManager_onEndGame;
+    }
+
+    private void GameManager_onGameStarted()
+    {
+        playerInput.ActivateInput();
     }
 
     private void GameManager_onEndGame(bool isWin)
@@ -83,5 +90,11 @@ public class S_ControllerManager : MonoBehaviour
 
         _moveableJoystick.UpdatePosLocally(pos);
         _moveableJoystick.UpdateKnobPosLocally(pos);
+    }
+
+    private void OnDestroy()
+    {
+        _holdTouch.action.started -= ControllerManager_OnHoldTouch_started;
+        _holdTouch.action.canceled -= ControllerManager_OnHoldTouch_canceled;
     }
 }
