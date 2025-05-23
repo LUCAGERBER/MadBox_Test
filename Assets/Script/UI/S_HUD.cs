@@ -75,7 +75,7 @@ public class S_HUD : S_Screen
 
         seq = DOTween.Sequence(rt);
 
-        seq.Append(rt.DOMove(startPos + dir * Random.Range(20, 25), Random.Range(.3f, .6f)).SetEase(Ease.OutCirc));
+        seq.Append(rt.DOMove(startPos + dir * Random.Range(4, 5), Random.Range(.3f, .6f)).SetEase(Ease.OutCirc));
         seq.Append(rt.DOMove(_handleBarTransform.position, Random.Range(1f, 1.5f))).OnComplete(
             () =>
             {

@@ -787,7 +787,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 1703035422}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 30
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -1593,6 +1593,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 629249248}
     m_Modifications:
+    - target: {fileID: 5284271418144302200, guid: ff93cd602fc46ec4bb2ef71df0035500, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 5565949783399035865, guid: ff93cd602fc46ec4bb2ef71df0035500, type: 3}
       propertyPath: m_Name
       value: PF_WinScreen
@@ -1795,8 +1799,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
+  near clip plane: 20
+  far clip plane: 40
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -1824,7 +1828,7 @@ Transform:
   m_GameObject: {fileID: 1703035420}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 525.38043, y: 128.94336, z: 350.72107}
+  m_LocalPosition: {x: -419.1, y: -35.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2619,6 +2623,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 629249248}
     m_Modifications:
+    - target: {fileID: 669705669394134541, guid: 6b7d1bdbe47ec974ab416eff1d58cadb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 960
+      objectReference: {fileID: 0}
     - target: {fileID: 2922832804587890206, guid: 6b7d1bdbe47ec974ab416eff1d58cadb, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2703,6 +2711,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF_WaveAnnouncer
       objectReference: {fileID: 0}
+    - target: {fileID: 5300834669097987032, guid: 6b7d1bdbe47ec974ab416eff1d58cadb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 540
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2728,6 +2740,10 @@ PrefabInstance:
       propertyPath: _mainCamera
       value: 
       objectReference: {fileID: 1459999130}
+    - target: {fileID: 3830560927016850807, guid: 7eb1f1be4699eca4b893c50be648f97d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 8246947868260902171, guid: 7eb1f1be4699eca4b893c50be648f97d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2983,6 +2999,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 629249248}
     m_Modifications:
+    - target: {fileID: 1530859653533373178, guid: 596b1085c3ba68d438baa5ea5a2a686f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 2422480594514878804, guid: 596b1085c3ba68d438baa5ea5a2a686f, type: 3}
       propertyPath: m_Name
       value: PF_MainMenu
