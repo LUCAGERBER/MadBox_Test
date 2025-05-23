@@ -19,8 +19,11 @@ public class S_UIGameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null)
-            Destroy(instance);
+        if (instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         instance = this;
     }

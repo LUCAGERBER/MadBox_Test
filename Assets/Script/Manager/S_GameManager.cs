@@ -18,8 +18,11 @@ public class S_GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null)
-            Destroy(instance);
+        if (instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         instance = this;
     }

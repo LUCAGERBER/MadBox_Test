@@ -108,6 +108,7 @@ public class S_Player : S_Entity
             {
                 enemy.Hurt(currentWeapon.Damages);
                 S_CameraShakeManager.Shake(currentWeapon.Damages,.1f);
+                S_TimeManager.DoSlowMotion(.5f,.1f);
             }
         }
     }

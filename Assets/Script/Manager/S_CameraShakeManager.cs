@@ -14,8 +14,11 @@ public class S_CameraShakeManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null)
-            Destroy(instance);
+        if (instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         instance = this;
     }

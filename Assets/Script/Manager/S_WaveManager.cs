@@ -28,10 +28,6 @@ public class S_WaveManager : MonoBehaviour
     private int currentNbOfEliteLeft = 0;
     private int currentNbOfBossLeft = 0;
     
-    private int currentNbOfBasicSpawned = 0;
-    private int currentNbOfEliteSpawned = 0;
-    private int currentNbOfBossSpawned = 0;
-
     private int totalEnemiesInWave = 0;
     private int totalEnemiesDefeatedInWave = 0;
 
@@ -51,8 +47,11 @@ public class S_WaveManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null)
-            Destroy(instance);
+        if (instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         instance = this;
 
@@ -102,10 +101,13 @@ public class S_WaveManager : MonoBehaviour
 
         currentNbOfBasicLeft = currentWave.nbOfBasicEnemy;
         currentNbOfEliteLeft = currentWave.nbOfEliteEnemy;
+
         if (currentWave.isBossLevel) currentNbOfBossLeft++;
 
         totalEnemiesInWave = currentNbOfBasicLeft + currentNbOfEliteLeft + currentNbOfBossLeft;
         totalEnemiesDefeatedInWave = 0;
+
+        Debug.Log(totalEnemiesInWave);
 
         onNewWave?.Invoke(totalEnemiesInWave);
 
@@ -116,6 +118,9 @@ public class S_WaveManager : MonoBehaviour
     private void SpawnNextWave()
     {
         waveIndex++;
+
+        currentNbOfBossLeft = 0;
+
         StartWave();
     }
 
@@ -156,8 +161,9 @@ public class S_WaveManager : MonoBehaviour
 
             if (enemy == null) break;
 
+            Debug.Log($"Nb of basic left : {currentNbOfBasicLeft}");
+
             currentNbOfBasicLeft--;
-            currentNbOfBasicSpawned++;
 
             angle = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
             x = Mathf.Cos(angle) * UnityEngine.Random.Range(spawnRadiusRange.x, spawnRadiusRange.y);
@@ -173,22 +179,7 @@ public class S_WaveManager : MonoBehaviour
 
     private void Enemy_onDeath(S_Enemy enemy)
     {
-        switch (enemy.Type)
-        {
-            case EntityType.PopCorn:
-                currentNbOfBasicSpawned--;
-                break;
-            case EntityType.Elite:
-                currentNbOfEliteSpawned--;
-                break;
-            case EntityType.Boss:
-                currentNbOfBossSpawned--;
-                break;
-            case EntityType.Player:
-                break;
-            default:
-                break;
-        };
+        enemy.onDeath -= Enemy_onDeath;
 
         totalEnemiesDefeatedInWave++;
 
