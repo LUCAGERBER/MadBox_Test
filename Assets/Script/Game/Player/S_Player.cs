@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 public class S_Player : S_Entity
 {
+    public delegate void OnPlayerAttack(float attackCooldown);
+
     protected const string ENEMY_TAG = "Enemy";
     protected const string ATTACK_ANIM = "HeroAttack";
 
@@ -26,6 +28,7 @@ public class S_Player : S_Entity
     private Coroutine invulnCoroutine = null;
 
     public event UnityAction onDeath;
+    public event OnPlayerAttack onPlayerAttackEnded;
 
     protected override void Awake()
     {
@@ -118,6 +121,7 @@ public class S_Player : S_Entity
     private void AnimCallBack_onHitAnimationEnded()
     {
         Invoke("SearchForEnemies", currentWeapon.AttackCooldown);
+        onPlayerAttackEnded?.Invoke(currentWeapon.AttackCooldown);
     }
 
     protected void EquipWeapon(SO_Weapon wpn)

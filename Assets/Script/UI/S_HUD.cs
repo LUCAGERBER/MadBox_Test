@@ -8,15 +8,24 @@ using static UnityEngine.ParticleSystem;
 
 public class S_HUD : S_Screen
 {
+    private const string SWORD_ANIM_BUMP = "Bump";
+
     [SerializeField] private Camera _uiCamera = null;
     [SerializeField] private Canvas _canvas = null;
+
+    [Header("Progress bar")]
     [SerializeField] private Slider _progressBar = null;
     [SerializeField] private float _timeToFillSlot = .2f;
     [SerializeField] private RectTransform _enemyDeathFeedback = null;
     [SerializeField] private RectTransform _handleBarTransform = null;
     [SerializeField] private int _nbOfParticlesPerDeath = 4;
 
+    [Header("Sword Indicator")]
+    [SerializeField] private Image _swordImg = null;
+    [SerializeField] private Animator _swordAnimator = null;
+
     private Coroutine progressBarCoroutine = null;
+    private Coroutine fillSwordCoroutine = null;
 
     private int nbOfParticlesToComplete = 0;
     private int nbOfParticlesCollided = 0;
@@ -33,6 +42,12 @@ public class S_HUD : S_Screen
         nbOfParticlesCollided = 0;
 
         UpdateProgressBarProgress(nbOfParticlesCollided / (float)nbOfParticlesToComplete);
+    }
+
+    public void RefillWeaponIndicator(float timeToRefill)
+    {
+        if (fillSwordCoroutine != null) StopCoroutine(fillSwordCoroutine);
+        fillSwordCoroutine = StartCoroutine(FillSwordCoroutine(timeToRefill));
     }
 
     private IEnumerator FillProgressBar(float ratio)
@@ -84,6 +99,23 @@ public class S_HUD : S_Screen
                 Destroy(rt.gameObject);
             }
         );
+    }
+
+    private IEnumerator FillSwordCoroutine(float timeToFill)
+    {
+        float elapsed = 0f;
+
+        while(elapsed < timeToFill)
+        {
+            elapsed += Time.deltaTime;
+
+            _swordImg.fillAmount = Mathf.Lerp(0, 1, elapsed / timeToFill);
+
+            yield return null;
+        }
+
+        _swordAnimator.Play(SWORD_ANIM_BUMP);
+        fillSwordCoroutine = null;
     }
 
 }

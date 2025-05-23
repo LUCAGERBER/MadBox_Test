@@ -37,8 +37,14 @@ public class S_UIGameManager : MonoBehaviour
         S_WaveManager.Instance.onWaveEnded += WaveManager_onWaveEnded;
 
         S_GameManager.Instance.onEndGame += GameManager_onEndGame;
+        S_GameManager.Instance.onPlayerAttackCompleted += GameManager_onPlayerAttackCompleted;
 
         _mainMenu.Show();
+    }
+
+    private void GameManager_onPlayerAttackCompleted(float attackCooldown)
+    {
+        _hud.RefillWeaponIndicator(attackCooldown);
     }
 
     private void GameManager_onEndGame(bool isWin)
@@ -47,6 +53,8 @@ public class S_UIGameManager : MonoBehaviour
             _winScreen.Show();
         else
             _looseScreen.Show();
+
+        _hud.Hide();
     }
 
     private void WaveManager_onWaveEnded()
@@ -69,6 +77,7 @@ public class S_UIGameManager : MonoBehaviour
     private void MainMenu_onPlay()
     {
         StartGame();
+        _hud.Show();
     }
 
     private void StartGame()
