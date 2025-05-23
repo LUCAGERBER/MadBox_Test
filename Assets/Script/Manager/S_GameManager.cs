@@ -50,4 +50,9 @@ public class S_GameManager : MonoBehaviour
     {
         onGameStarted?.Invoke();
     }
+
+    private void OnDestroy()
+    {
+        instance = null;
+    }
 }

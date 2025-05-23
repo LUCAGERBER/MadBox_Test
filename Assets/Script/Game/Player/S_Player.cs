@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,6 +11,7 @@ public class S_Player : S_Entity
 
     [SerializeField] private Transform _weaponSlot = null;
     [SerializeField] private LayerMask _enemyLayer = default;
+    [SerializeField] private SpriteRenderer _attackRangeIndicator = null;
 
     private float speed = 5f;
     private float rotSpeed = 8f;
@@ -102,7 +104,11 @@ public class S_Player : S_Entity
         {
             c.TryGetComponent<S_Enemy>(out enemy);
 
-            if (enemy != null) enemy.Hurt(currentWeapon.Damages);
+            if (enemy != null)
+            {
+                enemy.Hurt(currentWeapon.Damages);
+                S_CameraShakeManager.Shake(currentWeapon.Damages,.1f);
+            }
         }
     }
 
@@ -119,6 +125,8 @@ public class S_Player : S_Entity
             Destroy(currentWeaponObj);
 
         currentWeaponObj = Instantiate(wpn.WeaponObject, _weaponSlot);
+
+        _attackRangeIndicator.transform.localScale = Vector3.one * currentWeapon.DetectionRadius * 2;
     }
 
     public override void Hurt(int dmg)

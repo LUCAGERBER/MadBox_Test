@@ -72,4 +72,9 @@ public class S_UIGameManager : MonoBehaviour
     {
         onUIGameStarted?.Invoke();
     }
+
+    private void OnDestroy()
+    {
+        instance = null;
+    }
 }
