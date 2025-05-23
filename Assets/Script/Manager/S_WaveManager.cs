@@ -107,8 +107,6 @@ public class S_WaveManager : MonoBehaviour
         totalEnemiesInWave = currentNbOfBasicLeft + currentNbOfEliteLeft + currentNbOfBossLeft;
         totalEnemiesDefeatedInWave = 0;
 
-        Debug.Log(totalEnemiesInWave);
-
         onNewWave?.Invoke(totalEnemiesInWave);
 
         if (waveCoroutine != null) StopCoroutine(waveCoroutine);
@@ -160,8 +158,6 @@ public class S_WaveManager : MonoBehaviour
             enemy = _entityStorage.GetBasicEnemy();
 
             if (enemy == null) break;
-
-            Debug.Log($"Nb of basic left : {currentNbOfBasicLeft}");
 
             currentNbOfBasicLeft--;
 

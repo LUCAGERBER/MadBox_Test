@@ -12,6 +12,8 @@ public class S_Player : S_Entity
     [SerializeField] private Transform _weaponSlot = null;
     [SerializeField] private LayerMask _enemyLayer = default;
     [SerializeField] private SpriteRenderer _attackRangeIndicator = null;
+    [SerializeField] private SkinnedMeshRenderer _bodyRenderer = null;
+    [SerializeField] private float _invulnBlinkRate = .25f;
 
     private float speed = 5f;
     private float rotSpeed = 8f;
@@ -157,13 +159,23 @@ public class S_Player : S_Entity
     private IEnumerator InvulnerabilityCoroutine()
     {
         float elapsed = 0;
+        float blinkElapsed = 0;
 
         while(elapsed < _stats.InvulnerabilityDuration)
         {
             elapsed += Time.deltaTime;
+            blinkElapsed += Time.deltaTime;
+
+            if (blinkElapsed > _invulnBlinkRate)
+            {
+                blinkElapsed = 0;
+                _bodyRenderer.enabled = !_bodyRenderer.enabled;
+            }
+
             yield return null;
         }
 
+        _bodyRenderer.enabled = true;
         invulnCoroutine = null;
     }
 

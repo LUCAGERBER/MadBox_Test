@@ -581,6 +581,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   _attackRangeIndicator: {fileID: 1397537169177077712}
+  _bodyRenderer: {fileID: 1042267208002864592}
+  invulnBlinkRate: 0.25
 --- !u!136 &6262649835704055941
 CapsuleCollider:
   m_ObjectHideFlags: 0
