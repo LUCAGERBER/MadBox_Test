@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: AOC_WinScreen
+  m_Controller: {fileID: 9100000, guid: af88a5e8455594e4eaa81b1084550a0f, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: b6d7d02df0bb7fb4d93b5d8de4473784, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 909b0483d59696b47b30ed8f08808b20, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 9dd5e4ddd58ec334f8241c23861614d3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 27e5e796a70ea124aa92645d29b6b429, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a62d7db33c59d3b4583e28e128d1d2df, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6da74c3c793d5bf4aac2bca4e819acbc, type: 2}

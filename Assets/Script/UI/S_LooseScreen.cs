@@ -2,20 +2,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class S_LooseScreen : S_Screen
+public class S_LooseScreen : S_EndScreen
 {
-    [SerializeField] private Button _restartBtn = null;
-
     [SerializeField] private Camera _mainCamera = null;
     [SerializeField] private float _zoomInStrenght = 10f;
     [SerializeField] private float _zoomInDuration = 5f;
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        _restartBtn.onClick.AddListener(()=> S_LoadManager.Load(S_LoadManager.Scene.MainScene));
-    }
 
     public override void Show()
     {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class S_Screen : MonoBehaviour
 {
     protected const string ACTIVE_BOOL = "isActive";

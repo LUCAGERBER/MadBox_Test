@@ -10,7 +10,7 @@ public class S_UIGameManager : MonoBehaviour
     [SerializeField] private S_HUD _hud = null;
     [SerializeField] private GameObject _waveAnnouncer = null;
     [SerializeField] private S_LooseScreen _looseScreen = null;
-    [SerializeField] private S_Joystick joystick = null;
+    [SerializeField] private S_WinScreen _winScreen = null;
 
     public event UnityAction onUIGameStarted;
 
@@ -41,7 +41,7 @@ public class S_UIGameManager : MonoBehaviour
     private void GameManager_onEndGame(bool isWin)
     {
         if (isWin)
-            Debug.Log("UI Win");
+            _winScreen.Show();
         else
             _looseScreen.Show();
     }
