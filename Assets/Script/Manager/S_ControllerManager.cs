@@ -18,10 +18,25 @@ public class S_ControllerManager : MonoBehaviour
 
     private bool useJoystick = false;
 
+    private PlayerInput playerInput;
+
     private void Awake()
     {
+        playerInput = GetComponent<PlayerInput>();
+
         _holdTouch.action.started += ControllerManager_OnHoldTouch_started;
         _holdTouch.action.canceled += ControllerManager_OnHoldTouch_canceled;
+
+    }
+
+    private void Start()
+    {
+        S_GameManager.Instance.onEndGame += GameManager_onEndGame;
+    }
+
+    private void GameManager_onEndGame(bool isWin)
+    {
+        playerInput.DeactivateInput();
     }
 
     private void OnPoint(InputValue input)

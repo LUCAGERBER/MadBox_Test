@@ -9,6 +9,8 @@ public class S_UIGameManager : MonoBehaviour
     [SerializeField] private S_MainMenu _mainMenu = null;
     [SerializeField] private S_HUD _hud = null;
     [SerializeField] private GameObject _waveAnnouncer = null;
+    [SerializeField] private S_LooseScreen _looseScreen = null;
+    [SerializeField] private S_Joystick joystick = null;
 
     public event UnityAction onUIGameStarted;
 
@@ -26,9 +28,22 @@ public class S_UIGameManager : MonoBehaviour
     private void Start()
     {
         _mainMenu.onPlay += MainMenu_onPlay;
+
         S_WaveManager.Instance.onEnemyDeath += WaveManager_onEnemyDeath;
         S_WaveManager.Instance.onNewWave += WaveManager_onNewWave;
         S_WaveManager.Instance.onWaveEnded += WaveManager_onWaveEnded;
+
+        S_GameManager.Instance.onEndGame += GameManager_onEndGame;
+
+        _mainMenu.Show();
+    }
+
+    private void GameManager_onEndGame(bool isWin)
+    {
+        if (isWin)
+            Debug.Log("UI Win");
+        else
+            _looseScreen.Show();
     }
 
     private void WaveManager_onWaveEnded()

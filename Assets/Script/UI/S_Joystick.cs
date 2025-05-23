@@ -19,11 +19,6 @@ public class S_Joystick : MonoBehaviour
         rectT = GetComponent<RectTransform>();
     }
 
-    public void UpdatePos(Vector2 pos)
-    {
-        rectT.anchoredPosition = pos;
-    }
-
     public void UpdatePosLocally(Vector2 pos)
     {
         Vector2 localPoint = Vector2.zero;

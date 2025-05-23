@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class S_Player : S_Entity
 {
@@ -19,6 +20,8 @@ public class S_Player : S_Entity
     private GameObject currentWeaponObj = null;
 
     private Coroutine invulnCoroutine = null;
+
+    public event UnityAction onDeath;
 
     protected override void Awake()
     {
@@ -84,6 +87,8 @@ public class S_Player : S_Entity
 
     private void SearchForEnemies()
     {
+        if(isDead) return;
+
         if(detectionCoroutine != null) StopCoroutine(detectionCoroutine);
         detectionCoroutine = StartCoroutine(DetectionLoop(Attack, _enemyLayer, ENEMY_TAG));
     }
@@ -128,7 +133,9 @@ public class S_Player : S_Entity
     protected override void Death()
     {
         base.Death();
-        Debug.Log("Ded");
+        if (detectionCoroutine != null) StopCoroutine(detectionCoroutine);
+        detectionCoroutine = null;
+        onDeath?.Invoke();
     }
 
     private IEnumerator InvulnerabilityCoroutine()

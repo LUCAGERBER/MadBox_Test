@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9024402294906431178}
   - component: {fileID: 4029979286012697000}
+  - component: {fileID: 5867677512302304679}
   m_Layer: 5
   m_Name: PF_MainMenu
   m_TagString: Untagged
@@ -52,6 +53,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playBtn: {fileID: 5136197551962740709}
+--- !u!95 &5867677512302304679
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2422480594514878804}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: faf6e60aed4aad3409bced63309cc68f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4096286146260771906
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,6 +85,7 @@ GameObject:
   - component: {fileID: 1432820988677012441}
   - component: {fileID: 8575443860372404823}
   - component: {fileID: 2312418054951777232}
+  - component: {fileID: 5015091894838953873}
   m_Layer: 5
   m_Name: background
   m_TagString: Untagged
@@ -127,6 +150,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &5015091894838953873
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4096286146260771906}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5060466200118359584
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +191,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7339542609207652156}
   m_Father: {fileID: 9024402294906431178}
@@ -317,8 +352,8 @@ MonoBehaviour:
 
     LUCA GERBER'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d9d499ad5203fee4bbb266e37d80b09d, type: 2}
+  m_sharedMaterial: {fileID: 1909043129825168398, guid: d9d499ad5203fee4bbb266e37d80b09d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -412,7 +447,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1530859653533373178}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

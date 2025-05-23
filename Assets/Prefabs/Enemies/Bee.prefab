@@ -570,7 +570,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6926839794863012741}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: wingrl2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -601,7 +601,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6926839794863012743}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: wing_r1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -632,7 +632,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6926839794863012745}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: wing_l2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -663,7 +663,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6926839794863012747}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: wing_l1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -694,7 +694,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6926839794863012749}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -726,7 +726,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6926839794863012751}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -759,7 +759,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6926839794863012753}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -796,7 +796,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6926839794863012755}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -828,7 +828,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6926839794863012757}
   - component: {fileID: 6926839794849704639}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Beez
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -925,7 +925,7 @@ GameObject:
   - component: {fileID: 6926839794863012759}
   - component: {fileID: 6926839794853975167}
   - component: {fileID: 6694458322529148023}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Bee
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -991,7 +991,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6926839794863012761}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: antenna_l4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1022,7 +1022,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6926839794863012763}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: antenna_l3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1054,7 +1054,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6926839794863012765}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: antenna_l2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1085,7 +1085,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6926839794863012767}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: antenna_l1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
