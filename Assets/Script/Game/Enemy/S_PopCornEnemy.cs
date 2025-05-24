@@ -18,6 +18,7 @@ public class S_PopCornEnemy : S_Enemy
 
     [Space()]
     [SerializeField] private float _windUpShakeStrenght = 1f;
+    [SerializeField] private ParticleSystem _spawnPs = null;
 
     private Coroutine dashCoroutine = null;
 
@@ -31,6 +32,13 @@ public class S_PopCornEnemy : S_Enemy
         dashDuration = _stats.DashDuration;
         endDashCooldown = _stats.EndDashCooldown;
         dashAnimationCurve = _stats.DashAnimationCurve;
+
+        onFullyActivated += S_PopCornEnemy_onFullyActivated;
+    }
+
+    private void S_PopCornEnemy_onFullyActivated()
+    {
+        _spawnPs.Play();
     }
 
     protected override void DoActionAttack()

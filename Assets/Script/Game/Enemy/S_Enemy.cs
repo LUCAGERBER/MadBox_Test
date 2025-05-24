@@ -39,6 +39,7 @@ public class S_Enemy : S_Entity
     private Action DoAction;
 
     public event OnEnemyDeath onDeath;
+    public event UnityAction onFullyActivated;
 
     public Vector3 DeathPos => deathPos;
     public NavMeshAgent Agent => agent;
@@ -138,6 +139,8 @@ public class S_Enemy : S_Entity
         _spawnerCanvas.SetActive(false);
         _hpBarParent.SetActive(true);
         myCollider.enabled = true;
+
+        onFullyActivated?.Invoke();
 
         methodAfterWait();
     }
