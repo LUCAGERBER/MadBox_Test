@@ -76,11 +76,11 @@ public class S_PopCornEnemy : S_Enemy
         Vector3 dir = Vector3.zero;
 
         Agent.updateRotation = false;
+        _attackIndicator.SetActive(true); 
 
         while (elapsed < dashWindUpTime)
         {
             elapsed += Time.deltaTime;
-            //faire trembler perso + feedback au sol
 
             x = charaStartPos.x + Random.Range(-1f,1f) * _windUpShakeStrenght;
             y = charaStartPos.y + Random.Range(-1f,1f) * _windUpShakeStrenght;
@@ -107,6 +107,8 @@ public class S_PopCornEnemy : S_Enemy
         Vector3 dashDirectionNormalized = dashDirection.normalized;
         Ray ray;
         RaycastHit hit;
+
+        _attackIndicator.SetActive(false);
 
         while (elapsed < dashDuration)
         {
@@ -146,6 +148,7 @@ public class S_PopCornEnemy : S_Enemy
         if (dashCoroutine != null) StopCoroutine(dashCoroutine);
         dashCoroutine = null;
 
+        _attackIndicator.SetActive(false);
     }
 
     

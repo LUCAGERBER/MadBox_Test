@@ -271,10 +271,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1042267208002864592, guid: 89de4008f8cc87d4a8e2924ba9d12eb7, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1618642515645699673, guid: 89de4008f8cc87d4a8e2924ba9d12eb7, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -294,10 +290,6 @@ PrefabInstance:
     - target: {fileID: 2932088792769763759, guid: 89de4008f8cc87d4a8e2924ba9d12eb7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3137283685161607772, guid: 89de4008f8cc87d4a8e2924ba9d12eb7, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3206923099687242354, guid: 89de4008f8cc87d4a8e2924ba9d12eb7, type: 3}
       propertyPath: m_Name
@@ -1796,10 +1788,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 629249248}
     m_Modifications:
-    - target: {fileID: 2458379649704746125, guid: ef612773f60789d448f058d2e9b61d1d, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3309879358761018238, guid: ef612773f60789d448f058d2e9b61d1d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -2308,9 +2296,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 629249248}
     m_Modifications:
-    - target: {fileID: 669705669394134541, guid: 6b7d1bdbe47ec974ab416eff1d58cadb, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 960
+    - target: {fileID: 2332402214682264839, guid: 6b7d1bdbe47ec974ab416eff1d58cadb, type: 3}
+      propertyPath: m_Name
+      value: background
       objectReference: {fileID: 0}
     - target: {fileID: 2922832804587890206, guid: 6b7d1bdbe47ec974ab416eff1d58cadb, type: 3}
       propertyPath: m_Pivot.x
@@ -2396,9 +2384,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF_WaveAnnouncer
       objectReference: {fileID: 0}
-    - target: {fileID: 5300834669097987032, guid: 6b7d1bdbe47ec974ab416eff1d58cadb, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 540
+    - target: {fileID: 3619624299753958133, guid: 6b7d1bdbe47ec974ab416eff1d58cadb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

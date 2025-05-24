@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class S_Player : S_Entity
 {
@@ -14,7 +15,8 @@ public class S_Player : S_Entity
 
     [SerializeField] private Transform _weaponSlot = null;
     [SerializeField] private LayerMask _enemyLayer = default;
-    [SerializeField] private SpriteRenderer _attackRangeIndicator = null;
+    [SerializeField] private RectTransform _attackRangeIndicatorUI = null;
+    [SerializeField] private Image _attackRangeIndicatorImg = null;
     [SerializeField] private SkinnedMeshRenderer _bodyRenderer = null;
     [SerializeField] private float _invulnBlinkRate = .25f;
     [SerializeField] private ParticleSystem _weaponStrikeParticleSystem = null;
@@ -28,6 +30,7 @@ public class S_Player : S_Entity
     private GameObject currentWeaponObj = null;
 
     private Coroutine invulnCoroutine = null;
+    private Coroutine afterAttackCoroutine = null;
 
     public event UnityAction onDeath;
     public event OnPlayerAttack onPlayerAttackEnded;
@@ -132,8 +135,28 @@ public class S_Player : S_Entity
 
     private void AnimCallBack_onHitAnimationEnded()
     {
-        Invoke("SearchForEnemies", currentWeapon.AttackCooldown);
+        if(afterAttackCoroutine != null) StopCoroutine(afterAttackCoroutine);
+        afterAttackCoroutine = StartCoroutine(WaitAttackCooldown(currentWeapon.AttackCooldown));
+
         onPlayerAttackEnded?.Invoke(currentWeapon.AttackCooldown);
+    }
+
+    private IEnumerator WaitAttackCooldown(float cooldown)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < cooldown)
+        {
+            elapsed += Time.deltaTime;
+
+            _attackRangeIndicatorImg.fillAmount = Mathf.Lerp(0, 1, elapsed / cooldown);
+
+            yield return null;
+        }
+
+        SearchForEnemies();
+
+        afterAttackCoroutine = null;
     }
 
     protected void EquipWeapon(SO_Weapon wpn)
@@ -145,7 +168,8 @@ public class S_Player : S_Entity
 
         currentWeaponObj = Instantiate(wpn.WeaponObject, _weaponSlot);
 
-        _attackRangeIndicator.transform.localScale = Vector3.one * currentWeapon.DetectionRadius * 2;
+        float feedbackSize = currentWeapon.DetectionRadius * 2;
+        _attackRangeIndicatorUI.sizeDelta = new Vector2(feedbackSize, feedbackSize);
     }
 
     public override void Hurt(int dmg, bool forceAnim = true)
@@ -171,7 +195,7 @@ public class S_Player : S_Entity
         if (detectionCoroutine != null) StopCoroutine(detectionCoroutine);
         detectionCoroutine = null;
 
-        _attackRangeIndicator.gameObject.SetActive(false);
+        _attackRangeIndicatorUI.gameObject.SetActive(false);
 
         onDeath?.Invoke();
     }
@@ -197,6 +221,12 @@ public class S_Player : S_Entity
 
         _bodyRenderer.enabled = true;
         invulnCoroutine = null;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, _baseWeapon.DetectionRadius);
     }
 
     private void OnDestroy()

@@ -12,6 +12,7 @@ public class S_Enemy : S_Entity
     protected const string PLAYER_TAG = "Player";
 
     [SerializeField] protected GameObject _spawnerCanvas = null;
+    [SerializeField] protected GameObject _attackIndicator = null;
     [SerializeField] protected GameObject _deathPs = null;
     [SerializeField] protected ParticleSystem _hurtPs = null;
 
