@@ -2666,10 +2666,6 @@ PrefabInstance:
       propertyPath: _entityStorage
       value: 
       objectReference: {fileID: 1002961982}
-    - target: {fileID: 7803009798484147292, guid: 2452b02c64b856848a0fd7a51260ed82, type: 3}
-      propertyPath: _wavesSettings
-      value: 
-      objectReference: {fileID: 11400000, guid: 3019cfff5f83cd846a21d24be59125d6, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
