@@ -33,7 +33,7 @@ public class S_HUD : S_Screen
     private void UpdateProgressBarProgress(float ratio)
     {
         if(progressBarCoroutine != null) StopCoroutine(progressBarCoroutine);
-        progressBarCoroutine = StartCoroutine(FillProgressBar(ratio));
+        if(isActiveAndEnabled) progressBarCoroutine = StartCoroutine(FillProgressBar(ratio));
     }
 
     /// <summary>
