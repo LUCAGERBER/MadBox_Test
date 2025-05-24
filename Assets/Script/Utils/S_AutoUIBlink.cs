@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Make a UI item automatically and constantly blink
+/// </summary>
 [RequireComponent(typeof(CanvasGroup))]
 public class S_AutoUIBlink : MonoBehaviour
 {

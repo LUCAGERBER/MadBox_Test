@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Store every settings of a given Entity
+/// </summary>
 [CreateAssetMenu(fileName = "EntityStat", menuName = "ScriptableObjects/Entity Stats")]
 public class SO_EntityStats : ScriptableObject
 {
@@ -37,13 +38,9 @@ public class SO_EntityStats : ScriptableObject
     public int Health => _health;
     public float Speed => _speed;
     public float RotSpeed => _rotSpeed;
-
     public LayerMask AttackLayer => _attackLayer;
-
     public EntityType EntityType => _entityType;
-
     public float TimeBeforeSpawn => _timeBeforeSpawn;
-
     public float DashWindUpTime => _dashWindUpTime;
     public float LockInDirectionPercent => _lockInDirectionPercent;
     public float DashDistance => _dashDistance;
@@ -51,8 +48,6 @@ public class SO_EntityStats : ScriptableObject
     public float EndDashCooldown => _endDashCooldown;
     public float DashAttackRadius => _dashAttackRadius;
     public AnimationCurve DashAnimationCurve => _dashAnimationCurve;
-
     public float InvulnerabilityDuration => _invulnerabilityDuration;
-
     #endregion
 }

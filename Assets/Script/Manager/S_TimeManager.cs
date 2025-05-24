@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Manages all time related parameters
+/// </summary>
 public class S_TimeManager : MonoBehaviour
 {
     [Header("Slow Motion")]
@@ -24,9 +27,11 @@ public class S_TimeManager : MonoBehaviour
         instance = this;
     }
 
+    /// <summary>
+    /// Pauses the game, if the game is already paused, unpause it.
+    /// </summary>
     public static void PauseGame()
     {
-
         if (!isPaused)
         {
             Time.timeScale = 0;
@@ -39,6 +44,11 @@ public class S_TimeManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Basic slow motion. If the duration is set at 0, the slow motion isn't stopping automatically
+    /// </summary>
+    /// <param name="duration"></param>
+    /// <param name="slowStrength"> The new time scale (The lower the slower) </param>
     public static void DoSlowMotion(float duration = 0, float slowStrength = 0)
     {
         float lSlowFactor = slowStrength != 0 ? slowStrength : instance.slowFactor;
@@ -53,6 +63,9 @@ public class S_TimeManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Reset back to a Normal flow of time
+    /// </summary>
     public static void DoNormalMotion()
     {
         Time.timeScale = 1;

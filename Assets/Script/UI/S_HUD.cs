@@ -1,11 +1,11 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.ParticleSystem;
 
+/// <summary>
+/// Manage the in game HUD
+/// </summary>
 public class S_HUD : S_Screen
 {
     private const string SWORD_ANIM_BUMP = "Bump";
@@ -36,6 +36,10 @@ public class S_HUD : S_Screen
         progressBarCoroutine = StartCoroutine(FillProgressBar(ratio));
     }
 
+    /// <summary>
+    /// Set the number of time the progress bar has to be filled by the _nbOfParticles (If 4 particles spawn at the death of an enemy and there is 10 enemy in this wave, 10*4=40 -> maxIndent = 40)
+    /// </summary>
+    /// <param name="max"></param>
     public void SetMaxIndent(int max)
     {
         nbOfParticlesToComplete = max * _nbOfParticlesPerDeath;
@@ -50,6 +54,11 @@ public class S_HUD : S_Screen
         fillSwordCoroutine = StartCoroutine(FillSwordCoroutine(timeToRefill));
     }
 
+    /// <summary>
+    /// Coroutine moving the progress bar from her current filledAmount to the desired one
+    /// </summary>
+    /// <param name="ratio"></param>
+    /// <returns></returns>
     private IEnumerator FillProgressBar(float ratio)
     {
         float elapsed = 0f;
@@ -65,6 +74,10 @@ public class S_HUD : S_Screen
         progressBarCoroutine = null;
     }
 
+    /// <summary>
+    /// Instantiate particles at the spot on the screen where the enemy died in the world
+    /// </summary>
+    /// <param name="worldPos"></param>
     public void SpawnEnemyDeathParticle(Vector3 worldPos)
     {
         Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
@@ -76,6 +89,10 @@ public class S_HUD : S_Screen
             InstantiateAndTweenFeedback(anchoredPos);
     }
 
+    /// <summary>
+    /// Coroutine managing the motion of the particle from their spawn to the handle bar of the progress bar
+    /// </summary>
+    /// <param name="anchoredPos"></param>
     private void InstantiateAndTweenFeedback(Vector2 anchoredPos)
     {
         RectTransform rt;
@@ -101,6 +118,11 @@ public class S_HUD : S_Screen
         );
     }
 
+    /// <summary>
+    /// Coroutine refilling the sword UI helper
+    /// </summary>
+    /// <param name="timeToFill"></param>
+    /// <returns></returns>
     private IEnumerator FillSwordCoroutine(float timeToFill)
     {
         float elapsed = 0f;

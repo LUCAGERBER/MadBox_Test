@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Manage all Inputs from the user
+/// </summary>
 public class S_ControllerManager : MonoBehaviour
 {
     [SerializeField] private InputActionReference _holdTouch = null;
@@ -24,6 +25,7 @@ public class S_ControllerManager : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
 
+        //Events call on the player Input when an input is pressed, then released
         _holdTouch.action.started += ControllerManager_OnHoldTouch_started;
         _holdTouch.action.canceled += ControllerManager_OnHoldTouch_canceled;
 
@@ -32,6 +34,7 @@ public class S_ControllerManager : MonoBehaviour
 
     private void Start()
     {
+        // Sub to event to know when to Activate / Deactivate inputs
         S_GameManager.Instance.onGameStarted += GameManager_onGameStarted;
         S_GameManager.Instance.onEndGame += GameManager_onEndGame;
     }
@@ -46,6 +49,10 @@ public class S_ControllerManager : MonoBehaviour
         playerInput.DeactivateInput();
     }
 
+    /// <summary>
+    /// Event called by PlayerInput (Name Sensitive) when the User move the cursor around. Calculate a direction Vector from the start of the touch and the current touch pos
+    /// </summary>
+    /// <param name="input"></param>
     private void OnPoint(InputValue input)
     {
         touchPos = input.Get<Vector2>();
@@ -60,6 +67,10 @@ public class S_ControllerManager : MonoBehaviour
         _player.SetDirection(dir.normalized);
     }
 
+    /// <summary>
+    /// Called when the User press the screen
+    /// </summary>
+    /// <param name="obj"></param>
     private void ControllerManager_OnHoldTouch_started(InputAction.CallbackContext obj)
     {
         useJoystick = true;
@@ -69,6 +80,10 @@ public class S_ControllerManager : MonoBehaviour
         StartPlaceJoystick(touchPos);
     }
 
+    /// <summary>
+    /// Called when the user release the screen
+    /// </summary>
+    /// <param name="obj"></param>
     private void ControllerManager_OnHoldTouch_canceled(InputAction.CallbackContext obj)
     {
         useJoystick = false;
@@ -76,11 +91,15 @@ public class S_ControllerManager : MonoBehaviour
         UpdateJoytickState();
     }
 
+    /// <summary>
+    /// Manage the state of the real joystick and the "Fake" one. Safer than replacing the actual joystick
+    /// </summary>
     private void UpdateJoytickState()
     {
         _staticJoystick.SetActive(!useJoystick);
         _moveableJoystick.gameObject.SetActive(useJoystick);
 
+        //Reset the player direction as no more Input are feeded.
         _player.SetDirection(Vector3.zero);
     }
 

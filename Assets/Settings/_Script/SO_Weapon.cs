@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Stores every Weapon related settings
+/// </summary>
 [CreateAssetMenu(fileName = "Weapon", menuName = "ScriptableObjects/Weapon")]
 public class SO_Weapon : ScriptableObject
 {

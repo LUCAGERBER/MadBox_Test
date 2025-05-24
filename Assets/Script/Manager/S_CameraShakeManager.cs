@@ -1,8 +1,10 @@
 using Cinemachine;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Manage CINEMACHINE ONLY Camera shakes
+/// </summary>
 public class S_CameraShakeManager : MonoBehaviour
 {
     private static S_CameraShakeManager instance;
@@ -23,6 +25,11 @@ public class S_CameraShakeManager : MonoBehaviour
         instance = this;
     }
 
+    /// <summary>
+    /// Shake the camera
+    /// </summary>
+    /// <param name="strenght"> How much the camera will shake </param>
+    /// <param name="duration"> For how long the camera will shake </param>
     public static void Shake(float strenght = 2f, float duration = .3f)
     {
         if (coroutine != null) instance.StopCoroutine(coroutine);
@@ -32,6 +39,12 @@ public class S_CameraShakeManager : MonoBehaviour
         coroutine = instance.StartCoroutine(ScreenShake(strenght, duration));
     }
 
+    /// <summary>
+    /// Coroutine setting the shake values and then slowly lerping them out
+    /// </summary>
+    /// <param name="strenght"></param>
+    /// <param name="duration"></param>
+    /// <returns></returns>
     private static IEnumerator ScreenShake(float strenght, float duration)
     {
         float elapsed = 0f;
@@ -60,6 +73,9 @@ public class S_CameraShakeManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Get the active Virtual camera and it's Shake profile
+    /// </summary>
     private static void UpdateActiveCamProfile()
     {
         cam = CinemachineCore.Instance.GetActiveBrain(0).ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineVirtualCamera>();

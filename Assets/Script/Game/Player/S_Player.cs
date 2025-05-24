@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -32,7 +31,14 @@ public class S_Player : S_Entity
     private Coroutine invulnCoroutine = null;
     private Coroutine afterAttackCoroutine = null;
 
+    /// <summary>
+    /// Called at the moment the player dies
+    /// </summary>
     public event UnityAction onDeath;
+
+    /// <summary>
+    /// Called every time the player complete an attack
+    /// </summary>
     public event OnPlayerAttack onPlayerAttackEnded;
 
     protected override void Awake()
@@ -45,6 +51,7 @@ public class S_Player : S_Entity
 
         currentHp = maxHp;
 
+        //Equip a weapon only if no weapon is there previously
         if (_weaponSlot.childCount == 0)
             EquipWeapon(_baseWeapon);
 
@@ -58,6 +65,10 @@ public class S_Player : S_Entity
         SearchForEnemies();
     }
 
+    /// <summary>
+    /// Set the direction variable, later used to calculate the movement direction
+    /// </summary>
+    /// <param name="dir"></param>
     public void SetDirection(Vector3 dir)
     {
         direction = new Vector3(dir.x, 0, dir.y);
@@ -68,6 +79,9 @@ public class S_Player : S_Entity
         Move();
     }
 
+    /// <summary>
+    /// Update the character rotation to match where the player is moving, only if the player is actually moving
+    /// </summary>
     protected void LookRotation()
     {
         if (direction.magnitude != 0)
@@ -126,6 +140,9 @@ public class S_Player : S_Entity
             HitFeedback();
     }
 
+    /// <summary>
+    /// Play all the feedbacks when the player hit something
+    /// </summary>
     private void HitFeedback()
     {
         S_CameraShakeManager.Shake(currentWeapon.Damages, .1f);
@@ -141,6 +158,11 @@ public class S_Player : S_Entity
         onPlayerAttackEnded?.Invoke(currentWeapon.AttackCooldown);
     }
 
+    /// <summary>
+    /// Manages the cooldown after each attack, before searching for enemies again
+    /// </summary>
+    /// <param name="cooldown"></param>
+    /// <returns></returns>
     private IEnumerator WaitAttackCooldown(float cooldown)
     {
         float elapsed = 0f;
@@ -159,6 +181,10 @@ public class S_Player : S_Entity
         afterAttackCoroutine = null;
     }
 
+    /// <summary>
+    /// Remplace the current equipped weapon if there is one, and Instantiate the new one
+    /// </summary>
+    /// <param name="wpn"></param>
     protected void EquipWeapon(SO_Weapon wpn)
     {
         currentWeapon = wpn;
@@ -200,6 +226,10 @@ public class S_Player : S_Entity
         onDeath?.Invoke();
     }
 
+    /// <summary>
+    /// Ticks down for the duration of the Invulnerability
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator InvulnerabilityCoroutine()
     {
         float elapsed = 0;
@@ -221,12 +251,6 @@ public class S_Player : S_Entity
 
         _bodyRenderer.enabled = true;
         invulnCoroutine = null;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, _baseWeapon.DetectionRadius);
     }
 
     private void OnDestroy()

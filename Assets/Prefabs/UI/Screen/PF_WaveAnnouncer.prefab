@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 5168104469354336708}
   - component: {fileID: 3377108362270764909}
   m_Layer: 5
-  m_Name: Image
+  m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -291,7 +291,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2922832804587890206
 RectTransform:
   m_ObjectHideFlags: 0

@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
+/// <summary>
+/// ParentClass to every enemy in the game
+/// </summary>
 public class S_Enemy : S_Entity
 {
     public delegate void OnEnemyDeath(S_Enemy enemy);
@@ -38,7 +41,14 @@ public class S_Enemy : S_Entity
 
     private Action DoAction;
 
+    /// <summary>
+    /// Called every time an enemy dies
+    /// </summary>
     public event OnEnemyDeath onDeath;
+
+    /// <summary>
+    /// Called every time an enemy is out of it's activate animation
+    /// </summary>
     public event UnityAction onFullyActivated;
 
     public Vector3 DeathPos => deathPos;
@@ -51,23 +61,35 @@ public class S_Enemy : S_Entity
 
         agent = GetComponent<NavMeshAgent>();
 
+        Init();
+
+        //Debug purposes only
         if (_autoActivate)
         {
             target = _debugTarget;
 
             SetModeMove();
         }
-
-        currentWeapon = _baseWeapon;
-
-        FetchSettings();
-
-        _hpBarParent.SetActive(false);
-        myCollider.enabled = false;
     }
 
+    /// <summary>
+    /// Initialise all of the default parameters
+    /// </summary>
+    protected void Init()
+    {
+        _hpBarParent.SetActive(false);
+        myCollider.enabled = false;
+
+        FetchSettings();
+    }
+
+    /// <summary>
+    /// Fetch all Scriptable object related settings
+    /// </summary>
     virtual protected void FetchSettings()
     {
+        currentWeapon = _baseWeapon;
+
         agent.speed = _stats.Speed;
         agent.angularSpeed = _stats.RotSpeed;
 
@@ -81,6 +103,9 @@ public class S_Enemy : S_Entity
 
     #region STATE_MACHINE
 
+    /// <summary>
+    /// Set the state machine to an empty state
+    /// </summary>
     virtual protected void SetModeVoid()
     {
         DoAction = DoActionVoid;
@@ -88,6 +113,9 @@ public class S_Enemy : S_Entity
 
     protected void DoActionVoid() { }
 
+    /// <summary>
+    /// Set the state machine to the Moving state
+    /// </summary>
     virtual protected void SetModeMove()
     {
         if (detectionCoroutine != null) StopCoroutine(detectionCoroutine);
@@ -101,9 +129,13 @@ public class S_Enemy : S_Entity
         Move();
     }
 
+    /// <summary>
+    /// Set the state machine to the Attack state
+    /// </summary>
     virtual protected void SetModeAttack()
     {
         DoAction = DoActionAttack;
+        elapsedAtack = attackCooldown;
     }
 
     virtual protected void DoActionAttack()
@@ -117,6 +149,9 @@ public class S_Enemy : S_Entity
         DoAction();    
     }
 
+    /// <summary>
+    /// Activate the entity without ignoring it's starting time
+    /// </summary>
     virtual public void Activate()
     {
         StartCoroutine(TimeBeforeActivate(SetModeMove));
@@ -138,6 +173,7 @@ public class S_Enemy : S_Entity
         _character.gameObject.SetActive(true);
         _spawnerCanvas.SetActive(false);
         _hpBarParent.SetActive(true);
+
         myCollider.enabled = true;
 
         onFullyActivated?.Invoke();
@@ -182,14 +218,17 @@ public class S_Enemy : S_Entity
 
         deathPos = transform.position;
 
-        _animCallBack.onHitAnimationEnded += AnimationCallback_onHitAnimationEnded;
+        _animCallBack.onHitAnimationEnded += AnimationCallback_onDeathAnimationEnded;
 
         SetModeVoid();
     }
 
-    private void AnimationCallback_onHitAnimationEnded()
+    /// <summary>
+    /// Called when the death animation has Finished playing
+    /// </summary>
+    private void AnimationCallback_onDeathAnimationEnded()
     {
-        _animCallBack.onHitAnimationEnded -= AnimationCallback_onHitAnimationEnded;
+        _animCallBack.onHitAnimationEnded -= AnimationCallback_onDeathAnimationEnded;
 
         Instantiate(_deathPs, transform.position - new Vector3(0, 1.5f, 0), _deathPs.transform.rotation);
 

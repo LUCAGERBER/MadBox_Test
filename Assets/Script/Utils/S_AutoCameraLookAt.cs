@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Helper to make an object look at the camera
+/// </summary>
 public class S_AutoCameraLookAt : MonoBehaviour
 {
     private void Update()

@@ -1,7 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Stores every wave related settings
+/// </summary>
 [CreateAssetMenu(fileName = "WaveSettings", menuName = "ScriptableObjects/Wave Settings")]
 public class SO_WaveSettings : ScriptableObject
 {

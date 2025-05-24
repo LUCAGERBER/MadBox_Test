@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Manage loading
+/// </summary>
 public class S_LoadManager : MonoBehaviour
 {
     public enum Scene

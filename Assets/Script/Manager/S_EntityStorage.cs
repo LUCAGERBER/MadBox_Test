@@ -1,7 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Very basic entity pulling system
+/// </summary>
 public class S_EntityStorage : MonoBehaviour
 {
     [SerializeField] private int _entityPerRow = 10;
@@ -23,8 +25,14 @@ public class S_EntityStorage : MonoBehaviour
         entities.Add(new List<Transform>());
     }
 
+    /// <summary>
+    /// Generally used after creating a new Entity. Parents it and give him a pos.
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <param name="type"></param>
     public void AddNewEntityToStorage(S_Entity entity, EntityType type)
     {
+        //The List is only use for convenience and visual debuggin at start, it's later ignored
         if (entities[count].Count > _entityPerRow-1)
         {
             entities.Add(new List<Transform>());
@@ -56,6 +64,10 @@ public class S_EntityStorage : MonoBehaviour
         entity.gameObject.SetActive(!_deactivateUponStorage);
     }
 
+    /// <summary>
+    /// Return an available basic enemy, if not available, returns null
+    /// </summary>
+    /// <returns></returns>
     public S_PopCornEnemy GetBasicEnemy()
     {
         if(basicEnemy.Count == 0)
@@ -70,6 +82,10 @@ public class S_EntityStorage : MonoBehaviour
         return enemy;
     }
 
+    /// <summary>
+    /// Used to store back an Entity
+    /// </summary>
+    /// <param name="entity"></param>
     public void StoreEntity(S_Entity entity)
     {
         switch (entity.Type)

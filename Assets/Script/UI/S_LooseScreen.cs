@@ -1,7 +1,9 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
+/// <summary>
+/// Manage the loose screen
+/// </summary>
 public class S_LooseScreen : S_EndScreen
 {
     [SerializeField] private Camera _mainCamera = null;
@@ -12,6 +14,7 @@ public class S_LooseScreen : S_EndScreen
     {
         base.Show();
 
+        //Update the main camera to have her only render the Player and the Enemies.
         _mainCamera.backgroundColor = Color.black;
         _mainCamera.clearFlags = CameraClearFlags.SolidColor;
 
@@ -20,6 +23,10 @@ public class S_LooseScreen : S_EndScreen
         StartCoroutine(CameraZoom());
     }
 
+    /// <summary>
+    /// Coroutine zooming the camera slowly. Needed since editing the Camera settings cause Cinemachine to loose control of the camera
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator CameraZoom()
     {
         float elapsed = 0f;

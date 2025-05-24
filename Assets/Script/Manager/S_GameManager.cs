@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Manages Game events
+/// </summary>
 public class S_GameManager : MonoBehaviour
 {
     public delegate void OnEndGame(bool isWin);

@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Manages the Wave system in the game
+/// </summary>
 public class S_WaveManager : MonoBehaviour
 {
     public delegate void OnEnemyDeath(float waveProgress, Vector3 enemyPos);
@@ -37,9 +39,24 @@ public class S_WaveManager : MonoBehaviour
 
     private Coroutine waveCoroutine = null;
 
+    /// <summary>
+    /// Called when every wave are completed
+    /// </summary>
     public event UnityAction onLevelFinished;
+
+    /// <summary>
+    /// Called when a new wave is starting
+    /// </summary>
     public event OnNewWave onNewWave;
+
+    /// <summary>
+    /// Called when a wave ended
+    /// </summary>
     public event UnityAction onWaveEnded;
+
+    /// <summary>
+    /// Called when an enemy dies
+    /// </summary>
     public event OnEnemyDeath onEnemyDeath;
 
     private static S_WaveManager instance;
@@ -70,6 +87,9 @@ public class S_WaveManager : MonoBehaviour
         StartWave();
     }
 
+    /// <summary>
+    /// Calculate the highest possible number of entity needed in a full level and stores it
+    /// </summary>
     private void SearchForHighestEntityNeeded()
     {
         foreach (Wave wave in _wavesSettings.Waves)
@@ -81,6 +101,9 @@ public class S_WaveManager : MonoBehaviour
         Debug.Log($"{nbOfBasicNeeded} basic enemies are needed and {nbOfEliteNeeded} elite enemy are needed");
     }
 
+    /// <summary>
+    /// Spawn the highest possible number of each entity needed in a full level and stores them in the storage
+    /// </summary>
     private void SpawnNeedEntities()
     {
         S_Enemy enemy;
@@ -93,19 +116,16 @@ public class S_WaveManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Starts the wave
+    /// </summary>
     private void StartWave()
     {
         Debug.Log($"There is {_wavesSettings.Waves.Count} waves and we're currently starting Wave : {waveIndex}");
 
         currentWave = _wavesSettings.Waves[waveIndex];
 
-        currentNbOfBasicLeft = currentWave.nbOfBasicEnemy;
-        currentNbOfEliteLeft = currentWave.nbOfEliteEnemy;
-
-        if (currentWave.isBossLevel) currentNbOfBossLeft++;
-
-        totalEnemiesInWave = currentNbOfBasicLeft + currentNbOfEliteLeft + currentNbOfBossLeft;
-        totalEnemiesDefeatedInWave = 0;
+        SetUpWaveValue();
 
         onNewWave?.Invoke(totalEnemiesInWave);
 
@@ -113,6 +133,23 @@ public class S_WaveManager : MonoBehaviour
         waveCoroutine = StartCoroutine(SpawnWave());
     }
 
+    /// <summary>
+    /// Fetch every values needed for the wave in the Scriptable Object
+    /// </summary>
+    private void SetUpWaveValue()
+    {
+        currentNbOfBasicLeft = currentWave.nbOfBasicEnemy;
+        currentNbOfEliteLeft = currentWave.nbOfEliteEnemy;
+
+        if (currentWave.isBossLevel) currentNbOfBossLeft++;
+
+        totalEnemiesInWave = currentNbOfBasicLeft + currentNbOfEliteLeft + currentNbOfBossLeft;
+        totalEnemiesDefeatedInWave = 0;
+    }
+
+    /// <summary>
+    /// Start the next wave
+    /// </summary>
     private void SpawnNextWave()
     {
         waveIndex++;
@@ -122,6 +159,10 @@ public class S_WaveManager : MonoBehaviour
         StartWave();
     }
 
+    /// <summary>
+    /// Coroutine running until every Entity of the wave have been spawned
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator SpawnWave()
     {
         float timeBetweenBatch = currentWave.timeBetweenBatch;
@@ -144,6 +185,9 @@ public class S_WaveManager : MonoBehaviour
         waveCoroutine = null;
     }
 
+    /// <summary>
+    /// Fetch a given number of Entity (Currently only basic enemy) and place them randomly, in a circle, around the player
+    /// </summary>
     private void FetchEnemies()
     {
         int nbOfEnemies = currentWave.nbOfEnemiesPerBatch;
@@ -167,7 +211,9 @@ public class S_WaveManager : MonoBehaviour
 
             enemy.gameObject.SetActive(true);
             enemy.transform.parent = null;
-            enemy.Agent.Warp(_player.transform.position + new Vector3(x, 0, z));
+
+            enemy.Agent.Warp(_player.transform.position + new Vector3(x, 0, z)); //Necessary since NavMesh are used and the Entity is forcefully moved
+
             enemy.onDeath += Enemy_onDeath;
             enemy.Activate();
         }
@@ -186,12 +232,18 @@ public class S_WaveManager : MonoBehaviour
         CheckWaveProgress();
     }
 
+    /// <summary>
+    /// Check called after the death of each enemy to see if the waves is over, or not
+    /// </summary>
     private void CheckWaveProgress()
     {
         if (totalEnemiesDefeatedInWave < totalEnemiesInWave) Debug.Log("Wave isn't over");
         else EndWave();
     }
 
+    /// <summary>
+    /// Called at the end of a wave. Launch a new one if there is one left, if not, call the onLevelFinished event
+    /// </summary>
     private void EndWave()
     {
         if (waveIndex + 1 >= _wavesSettings.Waves.Count) onLevelFinished?.Invoke();
@@ -199,6 +251,10 @@ public class S_WaveManager : MonoBehaviour
             StartCoroutine(WaitForNewWave());
     }
 
+    /// <summary>
+    /// Wait for an arbitrary time to let the wave end properly, the wait for the amount of time setted in the Scriptable object before starting a new wave
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator WaitForNewWave()
     {
         float elapsed = 0f;

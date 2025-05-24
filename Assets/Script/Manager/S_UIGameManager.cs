@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Manages all UI related events and commands screens
+/// </summary>
 public class S_UIGameManager : MonoBehaviour
 {
     [Header("Screens")]

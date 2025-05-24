@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using PhysicsD = RotaryHeart.Lib.PhysicsExtension.Physics;
 
 
 public class S_PopCornEnemy : S_Enemy
@@ -26,14 +24,19 @@ public class S_PopCornEnemy : S_Enemy
     {
         base.Awake();
 
+        onFullyActivated += S_PopCornEnemy_onFullyActivated;
+    }
+
+    protected override void FetchSettings()
+    {
+        base.FetchSettings();
+
         dashWindUpTime = _stats.DashWindUpTime;
         lockInDirectionPercent = _stats.LockInDirectionPercent;
         dashDistance = _stats.DashDistance;
         dashDuration = _stats.DashDuration;
         endDashCooldown = _stats.EndDashCooldown;
         dashAnimationCurve = _stats.DashAnimationCurve;
-
-        onFullyActivated += S_PopCornEnemy_onFullyActivated;
     }
 
     private void S_PopCornEnemy_onFullyActivated()
@@ -49,6 +52,7 @@ public class S_PopCornEnemy : S_Enemy
 
         elapsedAtack += Time.fixedDeltaTime;
 
+        //If entity canno't attack due to cooldown, and if the player isn't in range anymore, reset state and Move again
         if (elapsedAtack < attackCooldown)
         {
             if (!(DetectEntity(playerLayer, PLAYER_TAG).Count > 0))
@@ -57,15 +61,21 @@ public class S_PopCornEnemy : S_Enemy
             return;
         }
 
+        //Wait for another time before launching attack
         if(elapsedAtack > timeBeforeAttack + attackCooldown)
         {
             elapsedAtack = 0;
 
+            //Player must still be in range for the attack to trigger
             if (DetectEntity(playerLayer, PLAYER_TAG).Count > 0) dashCoroutine = StartCoroutine(DashAttack());
             else SetModeMove();
         }
     }
 
+    /// <summary>
+    /// Actual dash comportement
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator DashAttack()
     {
         if (isDead)
@@ -86,6 +96,7 @@ public class S_PopCornEnemy : S_Enemy
         Agent.updateRotation = false;
         _attackIndicator.SetActive(true); 
 
+        // Build up before dash -> Entity shaking and small UI feedback blinking
         while (elapsed < dashWindUpTime)
         {
             elapsed += Time.deltaTime;
@@ -98,7 +109,7 @@ public class S_PopCornEnemy : S_Enemy
 
             dir = target.position - transform.position;
 
-            if (elapsed / dashWindUpTime < lockInDirectionPercent) RotateTowards(transform, dir, 8f);
+            if (elapsed / dashWindUpTime < lockInDirectionPercent) RotateTowards(transform, dir, 8f);  //Rotate to look at the player, affecting dash direction, before locking at a %.
             else if (targetPos == Vector3.zero) targetPos = target.position;
 
             yield return null;
@@ -118,6 +129,7 @@ public class S_PopCornEnemy : S_Enemy
 
         _attackIndicator.SetActive(false);
 
+        // Dash on a fixed distance at a fixed speed and modified by a curve. Collision is detected with a Sphere collider
         while (elapsed < dashDuration)
         {
             elapsed += Time.fixedDeltaTime;
@@ -135,6 +147,8 @@ public class S_PopCornEnemy : S_Enemy
         }
 
         _animator.SetTrigger(DASH_ATTACK_END_KEY);
+
+        Agent.Warp(transform.position); // Update agent pos for the Nav Mesh due to the force move
 
         elapsed = 0f;
 

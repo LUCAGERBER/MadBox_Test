@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script managing the Joystick pos on the screen
+/// </summary>
 public class S_Joystick : MonoBehaviour
 {
     [SerializeField] private RectTransform _canvasRect = null;
@@ -28,6 +29,10 @@ public class S_Joystick : MonoBehaviour
         rectT.anchoredPosition = localPoint;
     }
 
+    /// <summary>
+    /// Update the pos of the knob inside of the joystick and clamping it toe the outer edges of the Joystick
+    /// </summary>
+    /// <param name="pos"></param>
     public void UpdateKnobPosLocally(Vector2 pos)
     {
         RectTransformUtility.ScreenPointToLocalPointInRectangle(rectT, pos, _camera, out knobLocalPoint);

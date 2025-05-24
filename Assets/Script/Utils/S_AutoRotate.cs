@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Rotate automatically and constantly an object
+/// </summary>
 public class S_AutoRotate : MonoBehaviour
 {
     [SerializeField] private Transform _target = null;

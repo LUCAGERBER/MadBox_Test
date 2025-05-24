@@ -1,8 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
+/// <summary>
+/// Manage the win screen
+/// </summary>
 public class S_WinScreen : S_EndScreen
 {
     [SerializeField] private GameObject _victoryCam = null;

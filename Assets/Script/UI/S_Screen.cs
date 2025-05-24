@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Parent class of every screen in the game
+/// </summary>
 [RequireComponent(typeof(Animator))]
 public class S_Screen : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class S_Screen : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    /// <summary>
+    /// Play the start animation & activate the screen
+    /// </summary>
     virtual public void Show()
     {
         if(animator == null) animator = GetComponent<Animator>();
@@ -22,6 +26,9 @@ public class S_Screen : MonoBehaviour
         animator.SetBool(ACTIVE_BOOL, true);
     }
 
+    /// <summary>
+    /// Only plays the closing animation, actual deactivation of the screen is done through Animation Event
+    /// </summary>
     virtual public void Hide()
     {
         animator.SetBool(ACTIVE_BOOL, false);
